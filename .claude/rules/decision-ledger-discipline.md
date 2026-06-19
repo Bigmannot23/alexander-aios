@@ -16,5 +16,11 @@ scope: unconditional
   link both directions. The old entry stays in the ledger, marked
   superseded — it's history, not an error to erase.
 
+**Known gap:** `Templates/decision-log.md` and `00_System/Decision-Index.md`
+don't yet have a status field. Until they do, write the status in prose in
+the decision log body rather than skipping it — don't treat the absence of
+a field as license to leave status implicit. Adding a real status field to
+both is a follow-up, not yet done.
+
 Full reasoning: `08_Decision-Logs/_index.md`, `00_System/Decision-Index.md`,
 `Master-Blueprint-V1.md` Appendix B.

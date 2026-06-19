@@ -6,9 +6,13 @@ scope: unconditional
 
 # Repo Hygiene
 
-- No raw, private, or sensitive files in this repo — secrets, credentials,
-  tokens, account/broker/payment data, raw screenshots/transcripts/clips.
-  If it's gitignored, it shouldn't be staged either.
+- No raw or sensitive files in this repo — secrets, credentials, tokens,
+  account/broker/payment data, raw screenshots/transcripts/clips, or any
+  private source material that hasn't cleared the rights/IP gate
+  (`00_System/Rights-IP-Gate.md`). Transformed private notes that *have*
+  cleared the gate (e.g. `05_Course-Library/`) are fine — this rule bans
+  raw/ungated private data, not permitted derived notes. If it's
+  gitignored, it shouldn't be staged either.
 - Keep diffs small and reviewable.
 - Plan before any multi-file edit — write the plan, get it approved, then
   execute.
