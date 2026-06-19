@@ -152,3 +152,49 @@ change works.
   remains a separate, still-manual step in `Source-Quality-Rubric.md`.
   Marked `source-quality` built in `.claude/skills/_index.md` (now 3 of 12
   first skills built).
+- Authored the fourth Alexander-AIOS skill, `research-ingest`
+  (`.claude/skills/research-ingest/SKILL.md`): a read-first, human-invoked
+  transformer that turns a source already cleared by `source-quality` into
+  a sanitized draft research note. It requires a prior `source-quality`
+  verdict as input — it stops with **Needs source-quality first** if none
+  is supplied, and with **Blocked by source-quality** or **Blocked for
+  trading safety** if that verdict is Reject, Human-review only, or Block
+  for safety, with one narrow exception: if the user explicitly asks only
+  for a short cautionary/rejection note recording why a blocked source
+  wasn't used, it produces that note alone (header, gate inputs, and a
+  Rejected/no-use items entry) without extracting any other content, and
+  still ends in a blocked verdict. For sources that clear the gate, it
+  extracts content into ordered, always-present buckets (research ingest
+  header, gate inputs, source summary, supported claims, unsupported/
+  needs-source claims, useful patterns, risks and caveats, EntryLens
+  candidate material, ClaudeOS/AIOS upgrade candidates, decision-log
+  candidates, rejected/no-use items, open questions, verdict), running
+  `claim-audit` against every extracted claim before any claim can be
+  marked "supported" — if claim-audit hasn't run yet, it stops with
+  **Needs claim-audit first** rather than guessing. Every EntryLens-
+  adjacent item (candidate predicates, candidate replay-fixture ideas,
+  product hypotheses) is extracted only under a `HUMAN-REVIEW ONLY:`
+  prefix per ADR-0001's "staged proposals only, never self-authorized"
+  boundary, and anything that would require trade-recommendation framing
+  to state is dropped to Rejected/no-use instead of being laundered
+  through "candidate" language. It never stores raw transcript/
+  screenshot/clip/upload/audio/video/copyrighted material regardless of
+  source-quality use permission, never writes to canonical doctrine or
+  product files (`Master-Blueprint-V1.md`, `CLAUDE.md`,
+  `OPERATING_DOCTRINE.md`, `.claude/rules/**`, `03_EntryLens/**`,
+  `04_AlphaLab/**`, `Claim-Index.md`, `Decision-Index.md`), never
+  promotes a candidate predicate/rule/replay-fixture/hypothesis into
+  implementation, never recommends trades/setups/entries/exits/contracts/
+  sizing/stops/targets/probability/edge/win-rate/expected-return, and
+  never computes or authorizes EntryLens Green. References
+  `.claude/rules/research-source-quality.md`,
+  `.claude/rules/entrylens-trading-safety.md`, ADR-0001, and both
+  `source-quality` and `claim-audit` as upstream gates. Ends with one of
+  six verdicts (ready for human review / needs source-quality first /
+  needs claim-audit first / blocked by source-quality / blocked for
+  trading safety / rejected — no useful action) and includes 5 test
+  cases. Added a row to `.claude/skills/_index.md` and appended row 13 to
+  `01_ClaudeOps/Skills/_index.md`'s first-skills table (now 4 first skills
+  built) — `youtube-ingest`'s pre-reserved row 2 is untouched,
+  since it remains a narrower, source-type-specific skill distinct from
+  this general-purpose one.
