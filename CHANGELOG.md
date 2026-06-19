@@ -194,7 +194,7 @@ change works.
   needs claim-audit first / blocked by source-quality / blocked for
   trading safety / rejected — no useful action) and includes 5 test
   cases. Added a row to `.claude/skills/_index.md` and appended row 13 to
-  `01_ClaudeOps/Skills/_index.md`'s first-skills table (now 4 of 12 first
-  skills built) — `youtube-ingest`'s pre-reserved row 2 is untouched,
+  `01_ClaudeOps/Skills/_index.md`'s first-skills table (now 4 first skills
+  built) — `youtube-ingest`'s pre-reserved row 2 is untouched,
   since it remains a narrower, source-type-specific skill distinct from
   this general-purpose one.

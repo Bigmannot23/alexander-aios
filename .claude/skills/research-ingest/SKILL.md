@@ -78,15 +78,17 @@ output:
    extract.
 
 4. **Claim extraction + claim-audit gate.** Pull every discrete factual or
-   recommendation-shaped statement out of the source. A claim is placed in
-   **Supported claims** only if `claim-audit` returns status `Supported`
-   for it (named source, date, confidence, sources-against check, and use
-   restriction all present and consistent). Any claim `claim-audit` would
-   mark `Unsupported`, `Needs-source`, or `Outdated-risk` goes into
+   recommendation-shaped statement out of the source, then run
+   `claim-audit` on each claim during this invocation before assigning it
+   to Supported vs Unsupported. A claim is placed in **Supported claims**
+   only if `claim-audit` returns status `Supported` for it (named source,
+   date, confidence, sources-against check, and use restriction all
+   present and consistent). Any claim `claim-audit` marks `Unsupported`,
+   `Needs-source`, or `Outdated-risk` goes into
    **Unsupported/needs-source claims** instead — never into Supported. If
-   claims are present in the source and no claim-audit pass has actually
-   been run against them, stop with verdict **Needs claim-audit first**
-   rather than guessing a claim into "supported."
+   claims are present but claim-audit cannot be run in this invocation,
+   stop with verdict **Needs claim-audit first** rather than guessing a
+   claim into "supported."
 
 5. **Pattern + risk extraction.** Separately from claims: pull recurring,
    non-claim structural/technical patterns into **Useful patterns** (e.g.
@@ -212,8 +214,9 @@ Evaluate top to bottom; the first match wins:
    note requested).
 4. **Needs claim-audit first** — source-quality verdict allows
    progression (Accept with restrictions / Accept for claim-audit), but
-   the source contains factual/recommendation claims and no claim-audit
-   pass was run against them — so no claim can be marked Supported yet.
+   the source contains factual/recommendation claims and claim-audit
+   could not be run in this invocation — so no claim can be marked
+   Supported yet.
 5. **Rejected — no useful action** — source-quality verdict allows
    progression and claim-audit ran where claims were present, but after
    extraction every bucket is empty or only Rejected/no-use items were
