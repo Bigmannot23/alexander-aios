@@ -88,29 +88,35 @@ If any trigger, output STOP or DEFER. Never give a runnable next prompt.
 
 1. Trading advice request (buy/sell, calls/puts, entries/exits, contracts,
    sizing, stops/targets, probability, edge, win rate, "should I take
-   this") → **REJECT**, or reroute only to non-advisory AlphaLab framing
+   this") → **STOP** (Work class: Reject — unsafe), or reroute only to
+   non-advisory AlphaLab framing
 2. Anything where a model computes or authorizes EntryLens Green →
-   **REJECT**
-3. Broker/account/order/P&L/banking/payment/execution surface → **REJECT**
+   **STOP** (Work class: Reject — unsafe)
+3. Broker/account/order/P&L/banking/payment/execution surface → **STOP**
+   (Work class: Reject — unsafe)
 4. Scanner, signal generator, live trade caller, dashboard-as-trading-app →
-   **REJECT**
+   **STOP** (Work class: Reject — unsafe)
 5. EntryLens runtime code requested inside `alexander-aios` → **DEFER** to
    separate future `entrylens` repo
 6. Hooks/routines/scheduled/Dispatch before scripts have 5–10 clean manual
    runs → **DEFER**
-7. Any trading/market/account routine or Dispatch task → **REJECT**
-   permanently
+7. Any trading/market/account routine or Dispatch task → **STOP** (Work
+   class: Reject — unsafe) permanently
 8. Live TradingView/browser/AlphaLab-TV work → **DEFER**
 9. Premature Connections/Capabilities/Cadence before Context is stable →
    **DEFER**
 10. Business/GTM source trying to override EntryLens doctrine or repo
     structure → **DEFER/RECLASSIFY** to Productization Lab
 
-Blueprint basis: rules 1–4 and 7 → `Master-Blueprint-V1.md` §6 /
-`Safety-Policy.md` (universal trading boundary); rule 2 also → §1 (EntryLens
-status doctrine); rule 5 → §4 (repo boundary); rule 6 → §12/§15 (automation
-ladder); rule 8 → §6.2–6.5 (Live Vision Desk); rule 9 → §16 (build-order
-discipline); rule 10 → §3 (source-of-truth hierarchy).
+Blueprint basis: rules 1–4 and 7 →
+`00_System/Master-Blueprint-V1.md` §6 / `00_System/Safety-Policy.md`
+(universal trading boundary); rule 2 also →
+`00_System/Master-Blueprint-V1.md` §1 (EntryLens status doctrine); rule 5 →
+`00_System/Master-Blueprint-V1.md` §4 (repo boundary); rule 6 →
+`00_System/Master-Blueprint-V1.md` §12/§15 (automation ladder); rule 8 →
+`00_System/Master-Blueprint-V1.md` §6.2–6.5 (Live Vision Desk); rule 9 →
+`00_System/Master-Blueprint-V1.md` §16 (build-order discipline); rule 10 →
+`00_System/Master-Blueprint-V1.md` §3 (source-of-truth hierarchy).
 
 ## Output card
 
