@@ -117,3 +117,38 @@ change works.
   `00_System/Claim-Index.md` itself — that stays a human step. Marked
   `claim-audit` built in `.claude/skills/_index.md` and
   `01_ClaudeOps/Skills/_index.md` (now 2 of 12 first skills built).
+- Authored the third Alexander-AIOS skill, `source-quality`
+  (`.claude/skills/source-quality/SKILL.md`): a read-first, human-invoked
+  classifier that runs on a raw source *before* ingestion or `claim-audit`
+  — it records source identity (title, author/provider, date/freshness,
+  URL/location), classifies source type (9 named types) and reliability
+  (high/medium/low/reject), checks rights/use restriction (cite-use,
+  paraphrase only, human-review only, do not ingest, reject), runs an
+  independent safety scan (no date, stale source, marketing/hype,
+  unverifiable claims, copyright/raw-transcript risk, trading-advice risk,
+  broker/account/P&L/payment/banking risk, AI-authorized Green risk), and
+  recommends one of six next steps. Ends with one of five verdicts (accept
+  for claim-audit / accept with restrictions / human-review only / reject
+  / block for safety) and includes 5 test cases. It is a deliberately
+  lighter, earlier, qualitative gate than the existing 0–20
+  `00_System/Source-Quality-Rubric.md` score — it does not compute that
+  number itself, and a source can still need the numeric rubric and the
+  `Rights-IP-Gate.md` green/amber/red check independently once it clears
+  this gate. The skill draws a hard line between a source merely being
+  restricted-use (paraphrase only — recorded in Rights/use restriction,
+  not a safety flag) and a source where raw transcript/media storage,
+  reproduction, or scraping is actually requested or implied (a genuine
+  `copyright/raw-transcript risk` safety flag) — conflating the two would
+  have wrongly blocked legitimately accessed, restricted-use sources.
+  References `.claude/rules/research-source-quality.md`,
+  `.claude/rules/entrylens-trading-safety.md`, and ADR-0001 as source of
+  truth, and names `claim-audit` as the next gate for factual claims. It
+  performs no ingestion, writes no source notes, stores no raw
+  transcript/media, edits no files by default, and never computes or
+  authorizes EntryLens Green. Edited row 5 of
+  `01_ClaudeOps/Skills/_index.md` in place (previously
+  `source-quality-score`, Proposed) to point at the built skill rather
+  than adding a duplicate row, since the 0–20 numeric rubric it described
+  remains a separate, still-manual step in `Source-Quality-Rubric.md`.
+  Marked `source-quality` built in `.claude/skills/_index.md` (now 3 of 12
+  first skills built).

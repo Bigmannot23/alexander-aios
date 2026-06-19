@@ -33,7 +33,7 @@ separately.
 `manual prompt → used 3× → checklist → skill → script (if deterministic) →
 hook (if enforcement) → routine (if scheduled, read-only only)`
 
-## First skills (2 of 12 built)
+## First skills (3 of 12 built)
 
 | # | Skill | System | Trigger | Output | Class | Safety class | Status |
 |---|---|---|---|---|---|---|---|
@@ -41,7 +41,7 @@ hook (if enforcement) → routine (if scheduled, read-only only)`
 | 2 | youtube-ingest | Lesson Library | new transcript | packet/lesson/claim-audit/candidate | Immediate | Research only | Proposed |
 | 3 | course-ingest | Course Library | new permitted course material | transformed notes | Immediate | Research only | Proposed |
 | 4 | claim-audit | AIOS | a factual/perf/legal claim | audited claim | V1 core | Research only | Built — `.claude/skills/claim-audit/SKILL.md` |
-| 5 | source-quality-score | AIOS | new source | 0–20 score + gate | V1 core | Research only | Proposed |
+| 5 | source-quality | AIOS | new source | type/reliability/rights/safety verdict (qualitative gate; 0–20 scoring stays separate in `Source-Quality-Rubric.md`) | V1 core | Research only | Built — `.claude/skills/source-quality/SKILL.md` |
 | 6 | lesson-promote | AIOS | strong lesson | system delta candidate | V1 core | n/a | Proposed |
 | 7 | decision-log | AIOS/all | a real decision | ADR entry | V1 core | n/a | Proposed |
 | 8 | proof-log | AIOS/all | a verified change | proof entry | V1 core | n/a | Proposed |
@@ -50,5 +50,5 @@ hook (if enforcement) → routine (if scheduled, read-only only)`
 | 11 | grill-me-trading-rules | AlphaLab | declaring a plan | gaps in invalidation/confirmation/no-trade | Immediate | Safe live cognitive support | Proposed |
 | 12 | weekly-brain-audit | AIOS | weekly | decay/stale/missing-proof report | V1 core | n/a | Proposed |
 
-Build ~10–12 of these, not 40. 2 of 12 built (route-task, claim-audit) —
-this repo is at Block 1 of 7 (see `CURRENT_STATE.md`).
+Build ~10–12 of these, not 40. 3 of 12 built (route-task, claim-audit,
+source-quality) — this repo is at Block 1 of 7 (see `CURRENT_STATE.md`).
