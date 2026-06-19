@@ -43,13 +43,11 @@ entries are logged yet.
 - No subagents implemented yet. One skill built (`route-task`; see
   `.claude/skills/_index.md`)
 - No TradingView/browser connections
-- No git repository initialized for this folder yet
 
 ## Next manual steps (not automated)
 
 1. Create a Claude Project over this repo with `CLAUDE.md`,
    `00_System/Safety-Policy.md`, `00_System/Source-of-Truth.md`, and
    `00_System/Master-Blueprint-V1.md` as curated knowledge.
-2. Decide whether/when to `git init` this folder.
-3. Build the remaining ~5 of the first ~6 skills from blueprint §8.1
+2. Build the remaining ~5 of the first ~6 skills from blueprint §8.1
    (`route-task` is built).
