@@ -33,7 +33,7 @@ separately.
 `manual prompt → used 3× → checklist → skill → script (if deterministic) →
 hook (if enforcement) → routine (if scheduled, read-only only)`
 
-## First skills (3 of 12 built)
+## First skills (4 of 12 built)
 
 | # | Skill | System | Trigger | Output | Class | Safety class | Status |
 |---|---|---|---|---|---|---|---|
@@ -49,6 +49,8 @@ hook (if enforcement) → routine (if scheduled, read-only only)`
 | 10 | trading-review | AlphaLab | after session | non-advisory review | V1 core | Post-session only | Proposed |
 | 11 | grill-me-trading-rules | AlphaLab | declaring a plan | gaps in invalidation/confirmation/no-trade | Immediate | Safe live cognitive support | Proposed |
 | 12 | weekly-brain-audit | AIOS | weekly | decay/stale/missing-proof report | V1 core | n/a | Proposed |
+| 13 | research-ingest | AIOS | "ingest this source" after source-quality clears it | draft research note (13 buckets incl. supported claims, EntryLens-adjacent HUMAN-REVIEW ONLY material, decision-log candidates) | V1 core | Research only | Built — `.claude/skills/research-ingest/SKILL.md` |
 
-Build ~10–12 of these, not 40. 3 of 12 built (route-task, claim-audit,
-source-quality) — this repo is at Block 1 of 7 (see `CURRENT_STATE.md`).
+Build ~10–12 of these, not 40. 4 of 12 built (route-task, claim-audit,
+source-quality, research-ingest) — this repo is at Block 1 of 7 (see
+`CURRENT_STATE.md`).
