@@ -33,7 +33,7 @@ separately.
 `manual prompt → used 3× → checklist → skill → script (if deterministic) →
 hook (if enforcement) → routine (if scheduled, read-only only)`
 
-## First skills (4 of 12 built)
+## First skills (4 built)
 
 | # | Skill | System | Trigger | Output | Class | Safety class | Status |
 |---|---|---|---|---|---|---|---|
