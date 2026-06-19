@@ -17,3 +17,14 @@ change works.
   ingest pipeline staging, `07`–`11` indexes, `Templates/`, and `.claude/`
   settings. Documentation, structure, templates, and indexes only — no
   runtime code, no hooks, no routines.
+
+## 2026-06-19
+
+- Authored the first Alexander-AIOS skill, `route-task`
+  (`.claude/skills/route-task/SKILL.md`): a read-only advisory classifier
+  that routes an incoming task to system, repo, folder, Claude surface, and
+  model, with hard-stop rules for trading advice, EntryLens Green, and
+  premature automation. It performs no work itself and edits no files
+  outside its own definition. Added `.claude/skills/_index.md` to track
+  built skills, and marked route-task built in
+  `01_ClaudeOps/Skills/_index.md`'s first-skills table.
