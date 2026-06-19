@@ -102,3 +102,18 @@ change works.
   `08_Decision-Logs/_index.md` with the real ADR-0001 references and ticked
   the `First decision log entry` box in `CURRENT_STATE.md`. No automation,
   scripts, hooks, or runtime added.
+- Authored the second Alexander-AIOS skill, `claim-audit`
+  (`.claude/skills/claim-audit/SKILL.md`): a read-first, human-invoked
+  classifier that extracts claims from a pasted draft/source note/research
+  summary, sorts them into facts/recommendations/assumptions/open
+  questions per `.claude/rules/research-source-quality.md`, audits each
+  factual/recommendation claim for source name, date, confidence, and
+  staleness, and runs an independent safety scan across all buckets for
+  trading-adjacent or EntryLens-Green language per
+  `.claude/rules/entrylens-trading-safety.md`. Ends with one of four
+  verdicts (pass / pass with caveats / block until sourced / block for
+  safety) and includes 5 test cases. It performs no ingestion, edits no
+  files by default, and never promotes a claim into
+  `00_System/Claim-Index.md` itself — that stays a human step. Marked
+  `claim-audit` built in `.claude/skills/_index.md` and
+  `01_ClaudeOps/Skills/_index.md` (now 2 of 12 first skills built).
