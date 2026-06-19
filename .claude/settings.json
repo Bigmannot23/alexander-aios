@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "defaultMode": "plan",
+    "disableBypassPermissionsMode": "disable",
+    "disableAutoMode": "disable",
+    "deny": [
+      "Read(./.env)", "Edit(./.env)", "Write(./.env)",
+      "Read(./.env.*)", "Edit(./.env.*)", "Write(./.env.*)",
+      "Read(./secrets/**)", "Edit(./secrets/**)", "Write(./secrets/**)",
+      "Read(./credentials/**)", "Edit(./credentials/**)", "Write(./credentials/**)",
+      "Read(./tokens/**)", "Edit(./tokens/**)", "Write(./tokens/**)",
+      "Read(./broker/**)", "Edit(./broker/**)", "Write(./broker/**)",
+      "Read(./brokers/**)", "Edit(./brokers/**)", "Write(./brokers/**)",
+      "Read(./account/**)", "Edit(./account/**)", "Write(./account/**)",
+      "Read(./accounts/**)", "Edit(./accounts/**)", "Write(./accounts/**)",
+      "Read(./live-account/**)", "Edit(./live-account/**)", "Write(./live-account/**)",
+      "Read(./orders/**)", "Edit(./orders/**)", "Write(./orders/**)",
+      "Read(./pnl/**)", "Edit(./pnl/**)", "Write(./pnl/**)",
+      "Read(./payment/**)", "Edit(./payment/**)", "Write(./payment/**)",
+      "Read(./payments/**)", "Edit(./payments/**)", "Write(./payments/**)",
+      "Read(./banking/**)", "Edit(./banking/**)", "Write(./banking/**)",
+      "Read(./raw/**)", "Edit(./raw/**)", "Write(./raw/**)",
+      "Read(./**/raw-transcripts/**)", "Edit(./**/raw-transcripts/**)", "Write(./**/raw-transcripts/**)",
+      "Read(./**/raw-screenshots/**)", "Edit(./**/raw-screenshots/**)", "Write(./**/raw-screenshots/**)",
+      "Read(./**/raw-clips/**)", "Edit(./**/raw-clips/**)", "Write(./**/raw-clips/**)",
+      "Read(./**/raw-uploads/**)", "Edit(./**/raw-uploads/**)", "Write(./**/raw-uploads/**)",
+      "Read(./transcripts/raw/**)", "Edit(./transcripts/raw/**)", "Write(./transcripts/raw/**)",
+      "Read(./screenshots/raw/**)", "Edit(./screenshots/raw/**)", "Write(./screenshots/raw/**)",
+      "Read(./artifacts/raw/**)", "Edit(./artifacts/raw/**)", "Write(./artifacts/raw/**)",
+      "Read(./**/account-exports/**)", "Edit(./**/account-exports/**)", "Write(./**/account-exports/**)",
+      "Read(./**/order-exports/**)", "Edit(./**/order-exports/**)", "Write(./**/order-exports/**)",
+      "Read(./07_Research-Library/_inbox/**)", "Edit(./07_Research-Library/_inbox/**)", "Write(./07_Research-Library/_inbox/**)",
+      "Read(./.claude/settings.local.json)", "Edit(./.claude/settings.local.json)", "Write(./.claude/settings.local.json)",
+      "Read(./.claude/worktrees/**)", "Edit(./.claude/worktrees/**)", "Write(./.claude/worktrees/**)",
+
+      "mcp__*",
+
+      "Bash(git push -f*)", "Bash(git push * -f *)", "Bash(git push * -f)", "Bash(git push *--force*)",
+      "Bash(git reset --hard*)", "Bash(git clean -fd*)", "Bash(git clean -fx*)",
+      "Bash(rm -rf *)", "Bash(Remove-Item * -Recurse*)",
+      "Bash(sudo *)",
+      "Bash(*broker*)", "Bash(*order*)", "Bash(*buy*)", "Bash(*sell*)",
+      "Bash(*robinhood*)", "Bash(*alpaca*)", "Bash(*tradier*)", "Bash(*interactivebrokers*)"
+    ],
+    "ask": [
+      "Write",
+      "Edit",
+      "Bash(git add*)", "Bash(git commit*)", "Bash(git push*)",
+      "Bash(git merge*)", "Bash(git rebase*)", "Bash(git reset*)",
+      "Bash(git checkout*)", "Bash(git branch*)", "Bash(git rm*)",
+      "Bash(git stash*)", "Bash(git cherry-pick*)", "Bash(git revert*)",
+      "Bash(git tag*)"
+    ],
+    "allow": [
+      "Read",
+      "Bash(git status*)", "Bash(git diff*)", "Bash(git log*)", "Bash(git show*)"
+    ]
+  },
+  "hooks": {}
+}

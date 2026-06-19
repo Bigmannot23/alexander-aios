@@ -39,3 +39,36 @@ change works.
   `**/raw-uploads/` patterns alongside the existing ones rather than
   replacing them. `.claude/settings.json` still doesn't exist — unchanged,
   out of scope.
+- Added the first `.claude/settings.json` safety baseline (blueprint §9.1
+  Block 4 / §10): `defaultMode: "plan"`, `disableBypassPermissionsMode` and
+  `disableAutoMode` both set to `"disable"`, a hard `deny` list covering
+  `.env`/secrets/credentials/tokens, broker/account/order/pnl/payment/
+  banking (singular and plural forms), raw-data and export-staging paths
+  (`raw/**`, `**/raw-transcripts/**`, `**/raw-screenshots/**`,
+  `**/raw-clips/**`, `**/raw-uploads/**`, `transcripts/raw/**`,
+  `screenshots/raw/**`, `artifacts/raw/**`, `**/account-exports/**`,
+  `**/order-exports/**`), the not-yet-existing `07_Research-Library/_inbox/**`
+  staging path, `live-account/**`, `.claude/settings.local.json`, and
+  `.claude/worktrees/**` — each denied for `Read`/`Edit`/`Write`, not just
+  `Read`. Also denies `mcp__*` outright (no MCP server is configured; this
+  blocks any future one by default) and the git-destructive/broad-dangerous
+  Bash patterns from blueprint §10 (force-push, `reset --hard`, `rm -rf`,
+  broker/order/buy/sell keywords). `Write`/`Edit` and all git-mutating
+  commands are `ask`; only read-only git inspection
+  (`status`/`diff`/`log`/`show`) and bare `Read` are pre-allowed. `hooks: {}`
+  stays empty — no hooks, no MCP config, no routines, no scripts, no
+  Dispatch. Not yet live-tested inside a running session; see
+  `CURRENT_STATE.md`.
+- Addressed automated PR review (Codex) on the settings baseline: added the
+  missing `live-account/**` deny triple (already in `.gitignore` and
+  blueprint §10, dropped by oversight); broadened the force-push deny from
+  `Bash(git push --force*)`/`Bash(git push -f*)` (which only match when the
+  flag is the first argument) to also match `--force`/`-f` appearing later
+  in the command, e.g. `git push origin main --force`. Removed
+  `Bash(curl *|*)`/`Bash(irm *|*)`/`Bash(iwr *|*)` — Claude Code matches
+  compound Bash commands per-subcommand (split on shell separators like
+  `|`), so a rule containing a literal `|` never matches either subcommand
+  and these denies were dead code, not an actual hard block. Pipe-to-shell
+  now correctly falls to the default `ask` gate (`defaultMode: "plan"`
+  already requires human review of every unlisted Bash command) rather than
+  being falsely advertised as denied outright.
