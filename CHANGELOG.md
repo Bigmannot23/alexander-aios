@@ -28,3 +28,14 @@ change works.
   outside its own definition. Added `.claude/skills/_index.md` to track
   built skills, and marked route-task built in
   `01_ClaudeOps/Skills/_index.md`'s first-skills table.
+- Patched the root `.gitignore` (added directly to `main` in commit
+  `a960b33`) to close real gaps found on review: missing `tokens/`,
+  `artifacts/raw/`, `live-account/`, browser profile/cookie patterns, and
+  non-functional raw-data patterns (`transcripts/raw/`, `screenshots/raw/`,
+  `uploads/raw/` are root-anchored and reversed-order relative to this
+  repo's actual `raw-transcripts/`-style folder convention, so they
+  wouldn't have matched real nested folders). Added the doctrine-correct
+  `**/raw-transcripts/`, `**/raw-screenshots/`, `**/raw-clips/`,
+  `**/raw-uploads/` patterns alongside the existing ones rather than
+  replacing them. `.claude/settings.json` still doesn't exist — unchanged,
+  out of scope.
