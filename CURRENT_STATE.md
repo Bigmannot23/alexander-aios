@@ -28,7 +28,12 @@ layer, `.claude/rules/**`, was also added 2026-06-19: six unconditional
 rule files (EntryLens trading safety, Alexander-AIOS boundary, research
 source quality, repo hygiene, decision-ledger discipline, Claude surface
 routing) plus a README index — load-on-relevance reference rules, not yet
-wired into any auto-load mechanism.
+wired into any auto-load mechanism. The first decision log,
+`08_Decision-Logs/ADR-0001-trader-intelligence-company.md` (status: accepted,
+2026-06-19), was authored to record the doctrine that Claude becomes a
+trader-intelligence company around EntryLens and does not trade — fixing the
+intent of the ingestion system before any ingestion skill is built; it is
+indexed in `00_System/Decision-Index.md`.
 
 ## Maturity (0–50 checklist — see `10_Dashboards/_index.md`)
 
@@ -42,7 +47,7 @@ wired into any auto-load mechanism.
 - [ ] `.claude/settings.json` deny rule verified against a live test
 - [ ] First `.claude/rules/` behavioral baseline verified against a live session
 - [ ] First real ingest loop (3–5 sources, 1 promoted, 1 rejected)
-- [ ] First decision log entry
+- [x] First decision log entry (ADR-0001, accepted, 2026-06-19)
 - [ ] First proof log entry
 - [ ] First weekly-brain-audit run
 - [ ] `entrylens/` separate product repo created

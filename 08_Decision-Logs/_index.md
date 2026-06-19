@@ -30,5 +30,7 @@ boundary. Routine task notes. The ledger view itself (that's
 
 ## Status
 
-Empty. No decisions logged yet. The first decision log is expected at
-blueprint §9 build order step 6 / work block 6.
+One decision logged. `ADR-0001-trader-intelligence-company.md` (status:
+accepted, 2026-06-19) records the doctrine that Claude becomes a
+trader-intelligence company around EntryLens and does not trade. It also has
+a row in `00_System/Decision-Index.md`.

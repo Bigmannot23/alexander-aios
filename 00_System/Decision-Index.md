@@ -37,4 +37,4 @@ format:
 
 | ID | Date | Decision | Owner | Proof required? | Link |
 |---|---|---|---|---|---|
-| _none yet_ | | | | | |
+| ADR-0001 | 2026-06-19 | Claude becomes a trader-intelligence company around EntryLens (Claude does not trade) | bigmannot23 | no | [ADR-0001](../08_Decision-Logs/ADR-0001-trader-intelligence-company.md) |

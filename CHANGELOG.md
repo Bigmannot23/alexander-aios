@@ -86,3 +86,19 @@ change works.
   logs — it does not modify `Templates/decision-log.md` or
   `00_System/Decision-Index.md`, which still have no `status` field; that
   remains a follow-up if the discipline is adopted.
+- Authored the first decision log,
+  `08_Decision-Logs/ADR-0001-trader-intelligence-company.md` (status:
+  accepted, owner: bigmannot23): records the strategic doctrine that Claude
+  becomes a trader-intelligence company around EntryLens and does not trade —
+  fixing the intent of the ingestion system before any ingestion skill is
+  built. The ADR enumerates what Claude is allowed to do (research digestion,
+  product/QA/compliance support, source-quality review, claim auditing,
+  candidate predicates/rules and candidate replay fixtures for human review,
+  decision logs) and what it must never become (trader, signal engine,
+  scanner, broker/account/order/P&L/payment/banking surface, market
+  automation agent, trade-recommendation system, EntryLens Green authority),
+  quotes the Green definition verbatim, and sets a supersession policy.
+  Replaced the placeholder rows in `00_System/Decision-Index.md` and
+  `08_Decision-Logs/_index.md` with the real ADR-0001 references and ticked
+  the `First decision log entry` box in `CURRENT_STATE.md`. No automation,
+  scripts, hooks, or runtime added.
