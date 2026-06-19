@@ -86,9 +86,10 @@ output:
    present and consistent). Any claim `claim-audit` marks `Unsupported`,
    `Needs-source`, or `Outdated-risk` goes into
    **Unsupported/needs-source claims** instead — never into Supported. If
-   claims are present but claim-audit cannot be run in this invocation,
-   stop with verdict **Needs claim-audit first** rather than guessing a
-   claim into "supported."
+   claims are present but claim-audit cannot be run in this invocation
+   (for example, the claim-audit skill is unavailable or errors before
+   returning results), stop with verdict **Needs claim-audit first**
+   rather than guessing a claim into "supported."
 
 5. **Pattern + risk extraction.** Separately from claims: pull recurring,
    non-claim structural/technical patterns into **Useful patterns** (e.g.
@@ -215,8 +216,8 @@ Evaluate top to bottom; the first match wins:
 4. **Needs claim-audit first** — source-quality verdict allows
    progression (Accept with restrictions / Accept for claim-audit), but
    the source contains factual/recommendation claims and claim-audit
-   could not be run in this invocation — so no claim can be marked
-   Supported yet.
+   could not be run in this invocation (e.g., unavailable/failed) —
+   so no claim can be marked Supported yet.
 5. **Rejected — no useful action** — source-quality verdict allows
    progression and claim-audit ran where claims were present, but after
    extraction every bucket is empty or only Rejected/no-use items were
