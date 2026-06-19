@@ -1,0 +1,52 @@
+# Claude local/runtime
+.claude/settings.local.json
+.claude/worktrees/
+
+# Environment and secrets
+.env
+.env.*
+secrets/
+credentials/
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+
+# Raw/private artifacts
+raw/
+uploads/raw/
+screenshots/raw/
+transcripts/raw/
+screen-recordings/raw/
+
+# Financial/account/trading-sensitive data
+broker/
+account/
+accounts/
+orders/
+order-exports/
+pnl/
+p-and-l/
+payment/
+banking/
+portfolio/
+statements/
+
+# Logs and caches
+logs/
+*.log
+.cache/
+tmp/
+temp/
+__pycache__/
+.pytest_cache/
+node_modules/
+dist/
+build/
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
