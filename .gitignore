@@ -7,6 +7,7 @@
 .env.*
 secrets/
 credentials/
+tokens/
 *.pem
 *.key
 *.p12
@@ -19,11 +20,17 @@ uploads/raw/
 screenshots/raw/
 transcripts/raw/
 screen-recordings/raw/
+**/raw-transcripts/
+**/raw-screenshots/
+**/raw-clips/
+**/raw-uploads/
+**/artifacts/raw/**
 
 # Financial/account/trading-sensitive data
 broker/
 account/
 accounts/
+live-account/
 orders/
 order-exports/
 pnl/
@@ -44,6 +51,10 @@ __pycache__/
 node_modules/
 dist/
 build/
+
+# Browser profile / cookie data (Live Vision Desk, when it exists)
+**/browser-profile/
+**/*.cookies
 
 # OS/editor noise
 .DS_Store

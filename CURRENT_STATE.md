@@ -13,13 +13,19 @@ current-state is a named risk in the blueprint (§13).
 short-router `CLAUDE.md` — just completed.** This is day-0 scaffold: structure,
 templates, and indexes only. The first skill, `route-task`, has been
 authored and dry-run tested; no loops have executed, no decisions or proof
-entries are logged yet.
+entries are logged yet. A root `.gitignore` was added directly to `main` on
+2026-06-19 (commit `a960b33`) and patched the same day after review to
+close gaps (missing `tokens/`/`artifacts/raw/`/`live-account/`/
+browser-profile patterns, non-functional raw-data anchoring).
+`00_System/Safety-Policy.md` exists as the repo policy. The separate
+enforcement file, `.claude/settings.json`, still doesn't.
 
 ## Maturity (0–50 checklist — see `10_Dashboards/_index.md`)
 
 - [x] Monorepo skeleton exists
 - [x] `00_System/` doctrine + indexes exist
 - [x] Short-router `CLAUDE.md` exists and fits one screen
+- [x] Root `.gitignore` safety baseline verified and patched
 - [ ] Claude Project created over the repo (manual UI step, not yet done)
 - [ ] Templates exercised at least once
 - [ ] First ~6 skills built and run (1/6: `route-task`)
