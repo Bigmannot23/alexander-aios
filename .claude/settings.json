@@ -14,6 +14,7 @@
       "Read(./brokers/**)", "Edit(./brokers/**)", "Write(./brokers/**)",
       "Read(./account/**)", "Edit(./account/**)", "Write(./account/**)",
       "Read(./accounts/**)", "Edit(./accounts/**)", "Write(./accounts/**)",
+      "Read(./live-account/**)", "Edit(./live-account/**)", "Write(./live-account/**)",
       "Read(./orders/**)", "Edit(./orders/**)", "Write(./orders/**)",
       "Read(./pnl/**)", "Edit(./pnl/**)", "Write(./pnl/**)",
       "Read(./payment/**)", "Edit(./payment/**)", "Write(./payment/**)",
@@ -35,10 +36,9 @@
 
       "mcp__*",
 
-      "Bash(git push --force*)", "Bash(git push -f*)", "Bash(git push --force-with-lease*)",
+      "Bash(git push -f*)", "Bash(git push * -f *)", "Bash(git push * -f)", "Bash(git push *--force*)",
       "Bash(git reset --hard*)", "Bash(git clean -fd*)", "Bash(git clean -fx*)",
       "Bash(rm -rf *)", "Bash(Remove-Item * -Recurse*)",
-      "Bash(curl *|*)", "Bash(irm *|*)", "Bash(iwr *|*)",
       "Bash(sudo *)",
       "Bash(*broker*)", "Bash(*order*)", "Bash(*buy*)", "Bash(*sell*)",
       "Bash(*robinhood*)", "Bash(*alpaca*)", "Bash(*tradier*)", "Bash(*interactivebrokers*)"
