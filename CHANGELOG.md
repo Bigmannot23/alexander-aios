@@ -39,3 +39,22 @@ change works.
   `**/raw-uploads/` patterns alongside the existing ones rather than
   replacing them. `.claude/settings.json` still doesn't exist — unchanged,
   out of scope.
+- Added the first `.claude/settings.json` safety baseline (blueprint §9.1
+  Block 4 / §10): `defaultMode: "plan"`, `disableBypassPermissionsMode` and
+  `disableAutoMode` both set to `"disable"`, a hard `deny` list covering
+  `.env`/secrets/credentials/tokens, broker/account/order/pnl/payment/
+  banking (singular and plural forms), raw-data and export-staging paths
+  (`raw/**`, `**/raw-transcripts/**`, `**/raw-screenshots/**`,
+  `**/raw-clips/**`, `**/raw-uploads/**`, `transcripts/raw/**`,
+  `screenshots/raw/**`, `artifacts/raw/**`, `**/account-exports/**`,
+  `**/order-exports/**`), the not-yet-existing `07_Research-Library/_inbox/**`
+  staging path, `.claude/settings.local.json`, and `.claude/worktrees/**` —
+  each denied for `Read`/`Edit`/`Write`, not just `Read`. Also denies
+  `mcp__*` outright (no MCP server is configured; this blocks any future
+  one by default) and the git-destructive/broad-dangerous Bash patterns from
+  blueprint §10 (force-push, `reset --hard`, `rm -rf`, pipe-to-shell, broker/
+  order/buy/sell keywords). `Write`/`Edit` and all git-mutating commands are
+  `ask`; only read-only git inspection (`status`/`diff`/`log`/`show`) and
+  bare `Read` are pre-allowed. `hooks: {}` stays empty — no hooks, no MCP
+  config, no routines, no scripts, no Dispatch. Not yet live-tested inside a
+  running session; see `CURRENT_STATE.md`.

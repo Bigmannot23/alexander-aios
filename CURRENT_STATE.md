@@ -18,7 +18,12 @@ entries are logged yet. A root `.gitignore` was added directly to `main` on
 close gaps (missing `tokens/`/`artifacts/raw/`/`live-account/`/
 browser-profile patterns, non-functional raw-data anchoring).
 `00_System/Safety-Policy.md` exists as the repo policy. The separate
-enforcement file, `.claude/settings.json`, still doesn't.
+enforcement file, `.claude/settings.json`, now exists (added 2026-06-19):
+`defaultMode: "plan"`, bypass/auto modes disabled, a hard deny list over
+secrets/credentials/tokens/broker/account/order/pnl/payment/banking/raw-data/
+export-staging paths plus `mcp__*`, ask-before-Write/Edit and ask-before-git-
+mutation, no hooks/MCP/routines/scripts/Dispatch. Not yet exercised against
+a live session — see the maturity checklist below.
 
 ## Maturity (0–50 checklist — see `10_Dashboards/_index.md`)
 
