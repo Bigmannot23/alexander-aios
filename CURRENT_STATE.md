@@ -17,8 +17,8 @@ entries are logged yet. A root `.gitignore` was added directly to `main` on
 2026-06-19 (commit `a960b33`) and patched the same day after review to
 close gaps (missing `tokens/`/`artifacts/raw/`/`live-account/`/
 browser-profile patterns, non-functional raw-data anchoring).
-`.claude/settings.json`, the paired enforcement file `Safety-Policy.md`
-expects alongside it, still doesn't exist.
+`00_System/Safety-Policy.md` (policy) exists, but the paired enforcement file
+`.claude/settings.json` still doesn't.
 
 ## Maturity (0–50 checklist — see `10_Dashboards/_index.md`)
 
