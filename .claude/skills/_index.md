@@ -26,3 +26,4 @@ implemented under `.claude/skills/`.
 | Skill | Path | Class | Status |
 |---|---|---|---|
 | route-task | `.claude/skills/route-task/SKILL.md` | Immediate | Built |
+| claim-audit | `.claude/skills/claim-audit/SKILL.md` | V1 core | Built |
