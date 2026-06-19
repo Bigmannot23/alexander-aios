@@ -50,20 +50,29 @@ Run in order against the supplied text:
    `research-source-quality.md` rather than re-inventing it.
 
 2. **Audit pass** — for every item in *Factual claims* and
-   *Recommendations*, record source name, source date, and confidence
-   (low / medium / high / none given), then assign exactly one status:
-   - **Supported** — named source, date, and confidence all present and
-     consistent with the claim
+   *Recommendations*, record source name, source date, confidence
+   (low / medium / high / none given), sources against (any contradicting
+   source found or named in the text, or "none found" — never left
+   blank), and a use restriction (e.g. "research only," "requires
+   independent verification," "rejected — prohibited"), per the full
+   field set required by `Master-Blueprint-V1.md` §7.4 and
+   `Templates/claim-audit.md`. Then assign exactly one status:
+   - **Supported** — named source, date, confidence, sources-against
+     check, and use restriction all present and consistent with the
+     claim
    - **Unsupported** — no source given at all
    - **Needs-source** — partial sourcing (e.g. source named but undated,
-     or vague attribution like "people say")
+     vague attribution like "people say," or sources-against/use
+     restriction left unaddressed)
    - **Outdated-risk** — sourced but stale, or currency cannot be
      confirmed from the text
    - **Safety-risk** — see step 4; safety-risk always overrides any other
      status for that claim
 
    A claim with no source name/date present can never be marked
-   `Supported`.
+   `Supported`. A claim is never marked `Supported` while sources-against
+   is blank or no use restriction is given — at best it is
+   `Needs-source`.
 
 3. **Stale scan** — for any claim touching a fast-moving fact (market
    structure/regime, pricing, product behavior, software/API behavior),
@@ -105,9 +114,9 @@ Run in order against the supplied text:
 | 4 | ... | Open question |
 
 ### Claim audit table
-| # | Claim | Source name | Source date | Confidence | Status | Note |
-|---|---|---|---|---|---|---|
-| 1 | ... | ... | ... | low/medium/high/none | Supported/Unsupported/Needs-source/Outdated-risk/Safety-risk | ... |
+| # | Claim | Source name | Source date | Confidence | Sources against | Use restriction | Status | Note |
+|---|---|---|---|---|---|---|---|---|
+| 1 | ... | ... | ... | low/medium/high/none | ... or "none found" | research only / requires independent verification / rejected — prohibited | Supported/Unsupported/Needs-source/Outdated-risk/Safety-risk | ... |
 
 ### Safety-risk claims
 (omit this section entirely if none found; otherwise list each with its
@@ -130,17 +139,18 @@ Evaluate top to bottom; the first match wins:
 3. **Pass with caveats** — no safety-risk or unsourced blockers, but at
    least one claim is `Outdated-risk` or low-confidence.
 4. **Pass** — every factual/recommendation claim is `Supported` with
-   source, date, and confidence; buckets are clean; nothing stale or
-   unsafe.
+   source, date, confidence, a sources-against check, and a use
+   restriction; buckets are clean; nothing stale or unsafe.
 
 ## Test cases
 
 1. **Clean sourced note** — every factual claim has a named source,
-   date, and stated confidence; nothing trading-adjacent. Expect all rows
-   `Supported` → verdict **Pass**.
-2. **Missing sourcing** — a factual claim is stated with no source or
-   date at all. Expect that row `Unsupported` → verdict **Block until
-   sourced**.
+   date, stated confidence, a sources-against check ("none found" or a
+   named contradicting source), and a use restriction; nothing
+   trading-adjacent. Expect all rows `Supported` → verdict **Pass**.
+2. **Missing sourcing** — a factual claim is stated with no source, date,
+   sources-against check, or use restriction at all. Expect that row
+   `Unsupported` → verdict **Block until sourced**.
 3. **Stale claim, non-blocking** — a claim is dated but old relative to
    a fact that changes quickly, and nothing else in the text is unsourced
    or unsafe. Expect that row `Outdated-risk` → verdict **Pass with
