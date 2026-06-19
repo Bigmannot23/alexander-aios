@@ -72,3 +72,17 @@ change works.
   now correctly falls to the default `ask` gate (`defaultMode: "plan"`
   already requires human review of every unlisted Bash command) rather than
   being falsely advertised as denied outright.
+- Added the first `.claude/rules/**` behavioral baseline: six unconditional
+  rule files (`entrylens-trading-safety.md`, `alexander-aios-boundary.md`,
+  `research-source-quality.md`, `repo-hygiene.md`,
+  `decision-ledger-discipline.md`, `claude-surface-routing.md`) plus a
+  `README.md` index. These are short, load-on-relevance reference rules —
+  one rung below skills on the automation ladder, not wired into any
+  auto-load/hook mechanism. `entrylens-trading-safety.md` carries the
+  verbatim Green definition and the full trading-safety boundary
+  unconditionally (not path-scoped), matching blueprint §1's "highest
+  authority" status. `decision-ledger-discipline.md` introduces a
+  proposed/accepted/superseded status discipline for future decision
+  logs — it does not modify `Templates/decision-log.md` or
+  `00_System/Decision-Index.md`, which still have no `status` field; that
+  remains a follow-up if the discipline is adopted.

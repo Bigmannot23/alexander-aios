@@ -23,7 +23,12 @@ enforcement file, `.claude/settings.json`, now exists (added 2026-06-19):
 secrets/credentials/tokens/broker/account/order/pnl/payment/banking/raw-data/
 export-staging paths plus `mcp__*`, ask-before-Write/Edit and ask-before-git-
 mutation, no hooks/MCP/routines/scripts/Dispatch. Not yet exercised against
-a live session — see the maturity checklist below.
+a live session — see the maturity checklist below. The first behavioral
+layer, `.claude/rules/**`, was also added 2026-06-19: six unconditional
+rule files (EntryLens trading safety, Alexander-AIOS boundary, research
+source quality, repo hygiene, decision-ledger discipline, Claude surface
+routing) plus a README index — load-on-relevance reference rules, not yet
+wired into any auto-load mechanism.
 
 ## Maturity (0–50 checklist — see `10_Dashboards/_index.md`)
 
@@ -35,6 +40,7 @@ a live session — see the maturity checklist below.
 - [ ] Templates exercised at least once
 - [ ] First ~6 skills built and run (1/6: `route-task`)
 - [ ] `.claude/settings.json` deny rule verified against a live test
+- [ ] First `.claude/rules/` behavioral baseline verified against a live session
 - [ ] First real ingest loop (3–5 sources, 1 promoted, 1 rejected)
 - [ ] First decision log entry
 - [ ] First proof log entry
