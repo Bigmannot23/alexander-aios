@@ -273,15 +273,17 @@ documents the block, it does not lift it.
    on the source's other claims), with the unsupported claim and the
    HUMAN-REVIEW ONLY label both visible for the human reviewer to weigh.
 
-5. **Source-quality-accepted source with an unaudited claim** — an
-   academic paper, source-quality verdict **Accept for claim-audit**
-   (reliability high, use permission cite/use), containing a specific
-   factual claim ("X occurs in Y% of historical cases") that has not yet
-   been run through claim-audit in this session. Expect: the claim cannot
-   be marked Supported (no claim-audit pass exists for it yet) and is not
-   silently downgraded into Unsupported either — the skill stops before
-   finishing extraction → verdict **Needs claim-audit first**, one-line
-   reason naming the specific claim(s) still needing a claim-audit pass.
+5. **Source-quality-accepted source where claim-audit is unavailable
+   mid-run** — an academic paper, source-quality verdict **Accept for
+   claim-audit** (reliability high, use permission cite/use), containing a
+   specific factual claim ("X occurs in Y% of historical cases"). Step 4
+   attempts to run `claim-audit` on this claim during the invocation, but
+   the claim-audit skill is unavailable and errors before returning a
+   result. Expect: the claim cannot be marked Supported (no claim-audit
+   result exists for it) and is not silently downgraded into Unsupported
+   either — the skill stops before finishing extraction → verdict **Needs
+   claim-audit first**, one-line reason naming the specific claim(s)
+   claim-audit could not be run against.
 
 ## What this skill must never do
 
