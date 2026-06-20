@@ -436,3 +436,26 @@ change works.
   log entry"; noted only `product-scope-review` has had a live run, the other
   six skills have not). The matching `00_System/Proof-Index.md` ledger row is a
   deferred follow-up — that file was outside this task's allowed-file scope.
+- Added `06_YouTube-Lesson-Library/workflow.md`, a thin **operating runbook**
+  that sequences the existing `youtube-ingest` skill, the existing
+  `Templates/youtube-ingest.md` checklist, this folder's policy files, and the
+  downstream review skills into one **one-transcript-at-a-time** workflow. It
+  composes; it does not duplicate the skill or rewrite the template. The runbook
+  documents the full path — direct-request hard stop → rights/IP gate →
+  `source-quality` → `youtube-ingest` (with `claim-audit` internal) →
+  `trading-safety-review` → `product-scope-review` → human promotion — and makes
+  explicit the two doctrine-mandatory pre-gates (rights/IP gate and the
+  direct-request hard stop) that the bare four-skill chain omits. It also
+  specifies where raw transcript text may temporarily exist
+  (`raw-transcripts/`, gitignored, local-only) and confirms raw transcripts are
+  never committed; the sanitized note destination (`packets/` → `lessons/`, with
+  EntryLens-adjacent material reaching `03_EntryLens/Predicate-Candidates/` only
+  via the promotion lock, never directly); the exact skill invocations; the
+  `HUMAN-REVIEW ONLY:` candidate labels; a worked generic momentum-trading-video
+  example showing the drop-advice / keep-deterministic-candidate transformation;
+  a per-transcript Definition of Done; and the evidence to record in a proof log
+  after the first real run. Reprints the EntryLens Green definition verbatim,
+  introduces no engine code and no automation (stays at the manual
+  prompt/skill ceiling), and added a one-line reference to it in
+  `06_YouTube-Lesson-Library/_index.md`. No real transcript was ingested and no
+  source notes were written.
