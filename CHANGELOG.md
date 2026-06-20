@@ -422,3 +422,17 @@ change works.
   `.claude/skills/_index.md` and appended row 15 to
   `01_ClaudeOps/Skills/_index.md`'s first-skills table, bumping the built
   count from 6 to 7.
+- Recorded the repo's **first proof log**,
+  `09_Proof-Logs/product-scope-review-first-live-runs.md`: the
+  `product-scope-review` skill was run **read-only** against three artifacts —
+  `03_EntryLens/Product-Brief.md` (In scope), `03_EntryLens/Predicate-Candidates/_index.md`
+  (In scope, empty staging surface), and a deliberately drifted adversarial
+  hypothetical (Out of scope / block). The block path correctly caught
+  scanner / signal-alert / AI-trading-assistant / broker+P&L /
+  trade-recommendation / Green-redefinition / Claude-authorized-Green drift,
+  cross-flagged `trading-safety-review` and an ADR, and produced exact safe
+  replacement wording; no artifact was edited. Verdict: usable. Updated
+  `09_Proof-Logs/_index.md`'s Status and `CURRENT_STATE.md` (ticked "First proof
+  log entry"; noted only `product-scope-review` has had a live run, the other
+  six skills have not). The matching `00_System/Proof-Index.md` ledger row is a
+  deferred follow-up — that file was outside this task's allowed-file scope.
