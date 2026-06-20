@@ -296,6 +296,20 @@ change works.
   restriction step to set the Citable scope field while keeping the
   timestamped-concepts quoting limit and the never-store-raw rule
   unconditional. Updated every downstream step-number cross-reference in
-  Verdict precedence and Test cases to match. No new PR opened for this
-  follow-up, per the merge notification's instruction not to reopen or
-  open a new PR for the same change without being asked.
+  Verdict precedence and Test cases to match. These fixes are delivered
+  via follow-up PR #17, opened after the user explicitly asked for one —
+  not as a direct push to the already-merged PR #16.
+- PR #17 itself then drew a GitHub Copilot review (Request changes) with
+  2 findings: step 1's hard stop only covered trade-advice/Green requests,
+  not the raw-transcript-storage, transcript-reproduction, or media-
+  download requests the PR description also scoped in; and this
+  changelog's own "No new PR opened for this follow-up" sentence had gone
+  stale the moment PR #17 was opened. Fixed both on
+  `claude/amazing-cerf-esuchp`: step 1 now also hard-stops, before any
+  extraction, on requests to store raw material, reproduce a transcript
+  beyond a brief fair-use-defensible snippet, or download/fetch media —
+  citing `transcript-policy.md` and the step-14 never-store-raw rule
+  rather than the trading-safety rule used for the trade-advice/Green
+  case — and test case 4(a)-(c) updated to reflect that these are now
+  step-1 enforcement, not just generic refusals. The stale changelog
+  sentence above was rewritten to name PR #17 directly.

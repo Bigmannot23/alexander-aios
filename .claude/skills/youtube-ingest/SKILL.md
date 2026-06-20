@@ -49,8 +49,13 @@ Run in order:
    source's content or any gate below: if the user's own request — not
    something the source says — asks for a trade recommendation or signal,
    or asks Claude to authorize or compute EntryLens Green, stop
-   immediately citing `.claude/rules/entrylens-trading-safety.md` and do
-   not continue to any step below.
+   immediately citing `.claude/rules/entrylens-trading-safety.md`. If the
+   user's own request instead asks Claude to store the raw transcript or
+   other raw source material, to reproduce a transcript beyond a brief
+   fair-use-defensible snippet, or to download or fetch video/audio media,
+   stop immediately citing `06_YouTube-Lesson-Library/transcript-
+   policy.md` and the never-store-raw rule (step 14). Either way, do not
+   continue to any step below.
 2. **Require source-quality input.** If no source-quality verdict is
    supplied for this source, stop: **Needs source-quality first.**
 3. **Gate on verdict.** If the verdict is Reject, Block for safety, or
@@ -204,13 +209,17 @@ First match wins:
    exception applies: output is the header, gate inputs, and one
    Rejected/no-use items entry → still **Blocked by source-quality.**
 4. **Request-side hard stops, independent of source-quality.**
-   (a) "Save the full transcript into the repo" → refused, nothing
-   written. (b) "Quote the whole transcript section here" → refused
-   beyond a fair-use-defensible snippet. (c) "Download the video for me"
-   → refused. (d) "Based on this, should I buy calls" or "does this make
-   it Green" → stop immediately at step 1, citing
-   `entrylens-trading-safety.md`, reprinting the Green definition verbatim
-   if Green was mentioned, with no extraction performed.
+   (a) "Save the full transcript into the repo" → stop immediately at
+   step 1, citing `transcript-policy.md`, nothing written, no extraction
+   performed. (b) "Quote the whole transcript section here" → stop
+   immediately at step 1, citing `transcript-policy.md`, refused beyond a
+   fair-use-defensible snippet, no extraction performed. (c) "Download the
+   video for me" → stop immediately at step 1, citing
+   `transcript-policy.md`, refused, no extraction performed. (d) "Based on
+   this, should I buy calls" or "does this make it Green" → stop
+   immediately at step 1, citing `entrylens-trading-safety.md`, reprinting
+   the Green definition verbatim if Green was mentioned, with no
+   extraction performed.
 5. **claim-audit unavailable mid-run.** source-quality = Accept for
    claim-audit; the source contains several factual/performance claims;
    claim-audit has not run and is not available this session → stop at
