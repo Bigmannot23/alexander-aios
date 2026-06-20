@@ -13,8 +13,11 @@ current-state is a named risk in the blueprint (§13).
 short-router `CLAUDE.md` — just completed.** This is day-0 scaffold: structure,
 templates, and indexes only. The first seven skills, `route-task`,
 `claim-audit`, `source-quality`, `research-ingest`, `youtube-ingest`,
-`trading-safety-review`, and `product-scope-review`, have been authored; no
-loops have executed, no decisions or proof entries are logged yet. A root `.gitignore` was added directly to `main` on
+`trading-safety-review`, and `product-scope-review`, have been authored.
+`product-scope-review` has had its first **read-only** live run (against three
+artifacts, 2026-06-20), recorded in the repo's first proof log
+(`09_Proof-Logs/product-scope-review-first-live-runs.md`); the other six skills
+have not been run live yet. ADR-0001 is the one decision logged. A root `.gitignore` was added directly to `main` on
 2026-06-19 (commit `a960b33`) and patched the same day after review to
 close gaps (missing `tokens/`/`artifacts/raw/`/`live-account/`/
 browser-profile patterns, non-functional raw-data anchoring).
@@ -44,14 +47,15 @@ indexed in `00_System/Decision-Index.md`.
 - [x] Root `.gitignore` safety baseline verified and patched
 - [ ] Claude Project created over the repo (manual UI step, not yet done)
 - [ ] Templates exercised at least once
-- [ ] First ~6 skills built and run (7 built, none run yet: `route-task`,
-  `claim-audit`, `source-quality`, `research-ingest`, `youtube-ingest`,
-  `trading-safety-review`, `product-scope-review`)
+- [ ] First ~6 skills built and run (7 built; only `product-scope-review` run
+  so far — first read-only live run 2026-06-20, proof-logged; the other 6 not
+  yet run: `route-task`, `claim-audit`, `source-quality`, `research-ingest`,
+  `youtube-ingest`, `trading-safety-review`)
 - [ ] `.claude/settings.json` deny rule verified against a live test
 - [ ] First `.claude/rules/` behavioral baseline verified against a live session
 - [ ] First real ingest loop (3–5 sources, 1 promoted, 1 rejected)
 - [x] First decision log entry (ADR-0001, accepted, 2026-06-19)
-- [ ] First proof log entry
+- [x] First proof log entry (`product-scope-review-first-live-runs`, 2026-06-20)
 - [ ] First weekly-brain-audit run
 - [ ] `entrylens/` separate product repo created
 - [ ] First EntryLens predicate candidate (fixture + proof)
@@ -79,4 +83,5 @@ indexed in `00_System/Decision-Index.md`.
 2. Run the first seven built skills (`route-task`, `claim-audit`,
    `source-quality`, `research-ingest`, `youtube-ingest`,
    `trading-safety-review`, `product-scope-review`) against real artifacts at
-   least once each — none have been exercised live yet.
+   least once each — only `product-scope-review` has been exercised live so far
+   (read-only, 2026-06-20); the other six have not.

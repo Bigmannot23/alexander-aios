@@ -32,5 +32,9 @@ feeds).
 
 ## Status
 
-Empty. No proof logged yet. The first proof log is expected at blueprint
-§9 build order step 6 / work block 6.
+First proof log entered 2026-06-20:
+[`product-scope-review-first-live-runs.md`](product-scope-review-first-live-runs.md)
+— records the first read-only live-run sequence of the `product-scope-review`
+skill (2 clean artifacts passed, 1 adversarial artifact blocked; verdict:
+usable). A matching row in `00_System/Proof-Index.md` is still pending
+(deferred follow-up).
