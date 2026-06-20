@@ -32,9 +32,15 @@ feeds).
 
 ## Status
 
-First proof log entered 2026-06-20:
-[`product-scope-review-first-live-runs.md`](product-scope-review-first-live-runs.md)
-— records the first read-only live-run sequence of the `product-scope-review`
-skill (2 clean artifacts passed, 1 adversarial artifact blocked; verdict:
-usable). A matching row in `00_System/Proof-Index.md` is still pending
-(deferred follow-up).
+Proof logs entered 2026-06-20:
+
+1. [`product-scope-review-first-live-runs.md`](product-scope-review-first-live-runs.md)
+   — first read-only live-run sequence of the `product-scope-review` skill
+   (2 clean artifacts passed, 1 adversarial artifact blocked; verdict: usable).
+2. [`youtube-ingest-first-real-run.md`](youtube-ingest-first-real-run.md)
+   — first real run of the `06_YouTube-Lesson-Library` ingest workflow on a
+   live transcript (Saraev Claude Code course): full gate chain honored, no raw
+   material committed; verdict: pass.
+
+Both now have matching rows in `00_System/Proof-Index.md` (the earlier deferred
+follow-up for entry 1 is resolved).

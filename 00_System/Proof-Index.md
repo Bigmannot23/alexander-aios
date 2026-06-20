@@ -32,8 +32,9 @@ fixture — no proof, no "done").
 
 ## Ledger
 
-No proof has been logged yet. Add a row per proof entry using this format:
+Add a row per proof entry using this format:
 
 | ID | Date | Change | Evidence type | Result | Linked decision | Link |
 |---|---|---|---|---|---|---|
-| _none yet_ | | | | | | |
+| proof-product-scope-review-first-live-runs | 2026-06-20 | First live runs of `product-scope-review` | read-only review runs | pass | ADR-0001 | [link](../09_Proof-Logs/product-scope-review-first-live-runs.md) |
+| proof-youtube-ingest-first-real-run | 2026-06-20 | First real YouTube-ingest run (Saraev Claude Code course) → packet + lesson | gate-chain run + git evidence | pass | ADR-0001 | [link](../09_Proof-Logs/youtube-ingest-first-real-run.md) |
