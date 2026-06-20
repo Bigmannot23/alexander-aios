@@ -31,3 +31,4 @@ implemented under `.claude/skills/`.
 | research-ingest | `.claude/skills/research-ingest/SKILL.md` | V1 core | Built |
 | youtube-ingest | `.claude/skills/youtube-ingest/SKILL.md` | Immediate | Built |
 | trading-safety-review | `.claude/skills/trading-safety-review/SKILL.md` | V1 core | Built |
+| product-scope-review | `.claude/skills/product-scope-review/SKILL.md` | V1 core | Built |
