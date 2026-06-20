@@ -1,3 +1,7 @@
+---
+applyTo: "**"
+---
+
 # Alexander-AIOS Copilot Review Instructions
 
 You are reviewing commits and pull requests for the `Bigmannot23/alexander-aios` repository.
