@@ -361,3 +361,64 @@ change works.
   exception → Pass). Added a row to `.claude/skills/_index.md` and appended
   row 14 to `01_ClaudeOps/Skills/_index.md`'s first-skills table, bumping
   the built count from 5 to 6.
+- Ran `route-task` on the incoming task before authoring anything, per the
+  routing skill's own procedure: classified as System = ClaudeOps/AIOS,
+  Work class = V1 core, Safety class = Safe live cognitive support, Claude
+  surface = Claude Code, model = Opus, with no hard-stop rule firing —
+  non-advisory meta-tooling, clear to proceed.
+- Authored the seventh Alexander-AIOS skill, `product-scope-review`
+  (`.claude/skills/product-scope-review/SKILL.md`): the **companion** to
+  `trading-safety-review` that the sixth skill already names as its
+  next/companion skill whenever it finds product-scope drift. The two are
+  deliberately split: `trading-safety-review` asks "is this artifact unsafe
+  — a trade call, a Green authorization, a broker surface?"; this skill asks
+  the adjacent question "does this artifact push EntryLens or AIOS out of
+  their intended product shape?" — even when nothing in it is a live trade
+  call (safety drift → `trading-safety-review`; scope drift →
+  `product-scope-review`; an artifact can need both). A read-first,
+  human-invoked reviewer, it walks any artifact — product idea, feature
+  proposal, spec, PR diff, research-derived candidate, EntryLens-related
+  artifact, or AIOS change — item by item against 14 drift categories
+  (scanner behavior; signal/alert behavior; AI-trading-assistant behavior;
+  broker/account/order/P&L/payment/banking surfaces; trade-recommendation
+  behavior; EntryLens Green redefinition; Claude-authorized Green;
+  dashboard/platform bloat; runtime-code leakage into Alexander-AIOS;
+  autonomous ingestion/promotion; hooks/routines/Dispatch/MCP added before
+  manual proof; source-of-truth drift away from repo files; privacy/raw-data
+  risk; compliance/adviser-risk escalation). It holds EntryLens to
+  deterministic plan-/execution-alignment support for a human discretionary
+  trader, Alexander-AIOS to a Claude second brain / trader-intelligence
+  company brain, and Claude to research/QA/compliance/source-and-claim
+  audit/product-thinking support — never a trader, signal engine, scanner,
+  broker/account surface, execution system, AI trading assistant, or
+  EntryLens Green authority. Each finding gets one of six scope verdicts (in
+  scope / in scope with constraints / needs trading-safety-review / needs
+  ADR / defer / out of scope-block) and a routing recommendation from six
+  options (keep in Alexander-AIOS / future EntryLens runtime repo /
+  decision-log candidate / research note only / template-or-skill candidate /
+  reject-no action), plus exact before → after safe replacement scope
+  wording for every drifted item. A quote-context gate (mirroring
+  `trading-safety-review`'s) flags out-of-scope language quoted *only to
+  reject* as present-but-safe so the reviewer never blocks the rules files,
+  ADR-0001, the sibling skills, or itself. It reprints the canonical Green
+  definition verbatim whenever Green is referenced, cross-flags
+  `trading-safety-review` whenever a finding is trade-/signal-/Green-/broker-
+  adjacent (drift categories 1–7, since scope review is not safety review),
+  and cross-flags an ADR (amend/supersede ADR-0001) whenever a durable
+  mission/architecture/boundary change is proposed. It is itself
+  non-advisory: it never validates or finds trades, recommends setups,
+  computes edge, or authorizes/computes EntryLens Green; it edits no files by
+  default, performs no ingestion, writes no source notes, stores no raw
+  material, and never becomes a script/hook/routine/MCP config/Dispatch
+  workflow. References `.claude/rules/entrylens-trading-safety.md`,
+  `.claude/rules/alexander-aios-boundary.md`,
+  `.claude/rules/claude-surface-routing.md`, ADR-0001
+  (`08_Decision-Logs/ADR-0001-trader-intelligence-company.md`), and the
+  `trading-safety-review` companion skill. Includes 5 test cases (clean
+  candidate → In scope; mild active phrasing → In scope with constraints;
+  EntryLens-computes-Green + AIOS-as-trading-platform → Out of scope/block
+  with both cross-flags; premature hook/routine/MCP auto-ingest → Defer;
+  quoted-to-reject exception → In scope). Added a row to
+  `.claude/skills/_index.md` and appended row 15 to
+  `01_ClaudeOps/Skills/_index.md`'s first-skills table, bumping the built
+  count from 6 to 7.
