@@ -38,7 +38,7 @@ hook (if enforcement) → routine (if scheduled, read-only only)`
 | # | Skill | System | Trigger | Output | Class | Safety class | Status |
 |---|---|---|---|---|---|---|---|
 | 1 | route-task | AIOS | "where does this go?" | system/folder/skill | Immediate | n/a | Built — `.claude/skills/route-task/SKILL.md` |
-| 2 | youtube-ingest | Lesson Library | video/course/transcript source + source-quality verdict | paraphrased note: summary, timestamped concepts, claims, patterns, risks, EntryLens-candidate (HUMAN-REVIEW ONLY), upgrade/decision candidates, verdict | Immediate | Research only | Built — `.claude/skills/youtube-ingest/SKILL.md` |
+| 2 | youtube-ingest | Lesson Library | video/course/podcast/transcript source + source-quality verdict | paraphrased note: summary, timestamped concepts, claims, patterns, risks, EntryLens-candidate (HUMAN-REVIEW ONLY), upgrade/decision candidates, verdict | Immediate | Research only | Built — `.claude/skills/youtube-ingest/SKILL.md` |
 | 3 | course-ingest | Course Library | new permitted course material | transformed notes | Immediate | Research only | Proposed |
 | 4 | claim-audit | AIOS | a factual/perf/legal claim | audited claim | V1 core | Research only | Built — `.claude/skills/claim-audit/SKILL.md` |
 | 5 | source-quality | AIOS | new source | type/reliability/rights/safety verdict (qualitative gate; 0–20 scoring stays separate in `Source-Quality-Rubric.md`) | V1 core | Research only | Built — `.claude/skills/source-quality/SKILL.md` |
