@@ -243,7 +243,7 @@ change works.
   writes to canonical doctrine or product files
   (`Master-Blueprint-V1.md`, `CLAUDE.md`, `OPERATING_DOCTRINE.md`,
   `.claude/rules/**`, `03_EntryLens/**`, `04_AlphaLab/**`,
-  `Claim-Index.md`, `Decision-Index.md`) or any
+  `00_System/Claim-Index.md`, `00_System/Decision-Index.md`) or any
   `06_YouTube-Lesson-Library/**` pipeline folder (`inbox/`,
   `raw-transcripts/`, `packets/`, `lessons/`, `promoted/**`), never
   promotes a candidate predicate/rule/replay-fixture/hypothesis into
