@@ -30,3 +30,4 @@ implemented under `.claude/skills/`.
 | source-quality | `.claude/skills/source-quality/SKILL.md` | V1 core | Built |
 | research-ingest | `.claude/skills/research-ingest/SKILL.md` | V1 core | Built |
 | youtube-ingest | `.claude/skills/youtube-ingest/SKILL.md` | Immediate | Built |
+| trading-safety-review | `.claude/skills/trading-safety-review/SKILL.md` | V1 core | Built |

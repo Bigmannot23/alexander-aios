@@ -11,10 +11,10 @@ current-state is a named risk in the blueprint (§13).
 
 **Block 1 of 7 (blueprint §9.1) — monorepo + `00_System/` skeleton +
 short-router `CLAUDE.md` — just completed.** This is day-0 scaffold: structure,
-templates, and indexes only. The first five skills, `route-task`,
-`claim-audit`, `source-quality`, `research-ingest`, and `youtube-ingest`,
-have been authored; no loops have executed, no decisions or proof entries
-are logged yet. A root `.gitignore` was added directly to `main` on
+templates, and indexes only. The first six skills, `route-task`,
+`claim-audit`, `source-quality`, `research-ingest`, `youtube-ingest`, and
+`trading-safety-review`, have been authored; no loops have executed, no
+decisions or proof entries are logged yet. A root `.gitignore` was added directly to `main` on
 2026-06-19 (commit `a960b33`) and patched the same day after review to
 close gaps (missing `tokens/`/`artifacts/raw/`/`live-account/`/
 browser-profile patterns, non-functional raw-data anchoring).
@@ -44,8 +44,9 @@ indexed in `00_System/Decision-Index.md`.
 - [x] Root `.gitignore` safety baseline verified and patched
 - [ ] Claude Project created over the repo (manual UI step, not yet done)
 - [ ] Templates exercised at least once
-- [ ] First ~6 skills built and run (5/6: `route-task`, `claim-audit`,
-  `source-quality`, `research-ingest`, `youtube-ingest`)
+- [ ] First ~6 skills built and run (6 built, none run yet: `route-task`,
+  `claim-audit`, `source-quality`, `research-ingest`, `youtube-ingest`,
+  `trading-safety-review`)
 - [ ] `.claude/settings.json` deny rule verified against a live test
 - [ ] First `.claude/rules/` behavioral baseline verified against a live session
 - [ ] First real ingest loop (3–5 sources, 1 promoted, 1 rejected)
@@ -64,9 +65,9 @@ indexed in `00_System/Decision-Index.md`.
 - No routines (`01_ClaudeOps/Routines/README.md` — same gate)
 - No Dispatch workflows
 - No `entrylens/` product repo
-- No subagents implemented yet. Five skills built (`route-task`,
-  `claim-audit`, `source-quality`, `research-ingest`, `youtube-ingest`;
-  see `.claude/skills/_index.md`)
+- No subagents implemented yet. Six skills built (`route-task`,
+  `claim-audit`, `source-quality`, `research-ingest`, `youtube-ingest`,
+  `trading-safety-review`; see `.claude/skills/_index.md`)
 - No TradingView/browser connections
 
 ## Next manual steps (not automated)
@@ -74,6 +75,7 @@ indexed in `00_System/Decision-Index.md`.
 1. Create a Claude Project over this repo with `CLAUDE.md`,
    `00_System/Safety-Policy.md`, `00_System/Source-of-Truth.md`, and
    `00_System/Master-Blueprint-V1.md` as curated knowledge.
-2. Build the remaining ~1 of the first ~6 skills from blueprint §8.1
-   (`route-task`, `claim-audit`, `source-quality`, `research-ingest`, and
-   `youtube-ingest` are built).
+2. Run the first six built skills (`route-task`, `claim-audit`,
+   `source-quality`, `research-ingest`, `youtube-ingest`,
+   `trading-safety-review`) against real artifacts at least once each —
+   none have been exercised live yet.
