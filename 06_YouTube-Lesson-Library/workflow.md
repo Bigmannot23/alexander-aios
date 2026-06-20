@@ -5,300 +5,239 @@ source_of_truth: Master-Blueprint-V1.md §7
 
 # YouTube-Ingest Workflow (one transcript at a time)
 
-A manual **operating procedure** that sequences the pieces that already exist —
-the `youtube-ingest` skill, the `Templates/youtube-ingest.md` checklist, this
-folder's policy files, and the downstream review skills — into a single,
-repeatable, one-transcript-at-a-time flow.
+A manual operating runbook that **sequences existing pieces** into a single,
+repeatable, one-transcript-at-a-time procedure. It composes — it does not
+replace — the canonical artifacts:
 
-This runbook **composes**; it does not replace. On any conflict the canonical
-artifacts win, in this order: `00_System/Master-Blueprint-V1.md` →
-`OPERATING_DOCTRINE.md` → this folder's policy files
-(`transcript-policy.md`, `source-quality-rules.md`, `lesson-template.md`,
-`promotion-rules.md`) → the skill definitions → this file. It introduces **no**
-new schema, **no** engine code, and **no** automation: it stays at the current
-ceiling — manual prompts and skills only (no script, hook, routine, Dispatch, or
-MCP).
+- the **skill** [`.claude/skills/youtube-ingest/SKILL.md`](../.claude/skills/youtube-ingest/SKILL.md)
+  (read-first advisory transform; defines the output schema),
+- the **template** [`Templates/youtube-ingest.md`](../Templates/youtube-ingest.md)
+  (the writable pipeline checklist), and
+- the four policy files in this folder: [`transcript-policy.md`](transcript-policy.md),
+  [`source-quality-rules.md`](source-quality-rules.md),
+  [`lesson-template.md`](lesson-template.md), [`promotion-rules.md`](promotion-rules.md).
 
-## What belongs here
+On any conflict, those files win over this one. This runbook adds nothing to the
+automation ladder: it is **manual prompts/skills only** — no script, hook,
+routine, Dispatch, or MCP.
 
-The end-to-end procedure for turning **one** YouTube/video/course/podcast
-transcript at a time into a sanitized, human-reviewed lesson — including the
-mandatory pre-gates, the review chain, the destinations, and the
-definition of done.
+## What this runbook is not
 
-## What does not belong here
+Not an ingester, not engine code, not automation, and not a second copy of the
+skill's schema. It introduces no buy/sell/calls/puts/entries/exits/signal/scanner
+behavior, never authorizes or redefines EntryLens Green, and never writes raw
+transcript/clip/media to a tracked path.
 
-The schema, verdict logic, or boundaries of any skill (those live in each
-`SKILL.md`); the writable pipeline mechanics (those live in
-`Templates/youtube-ingest.md` and `promotion-rules.md`); raw transcripts or any
-raw media (those never enter a tracked path — see `transcript-policy.md`).
-
-## Read-first file
-
-`transcript-policy.md`, then this file.
-
----
-
-## Safety boundary (binding, read before every run)
-
-This workflow never produces a trade recommendation, signal, scanner, alert, or
-broker/account/P&L surface, and never computes, authorizes, or redefines
-EntryLens Green. Where Green is referenced anywhere downstream, it is reprinted
-verbatim and unparaphrased:
+**Green, verbatim** (reprinted unparaphrased wherever Green is referenced, per
+[`.claude/rules/entrylens-trading-safety.md`](../.claude/rules/entrylens-trading-safety.md)):
 
 > Green = every required condition in the trader's locked declared plan is
 > deterministically satisfied right now. Green does not mean buy, trade, enter,
 > high probability, edge, or best time.
 
-EntryLens runtime/engine code never lives in this repo. Everything trading-
-adjacent that survives ingest is a **HUMAN-REVIEW ONLY** candidate, staged and
-never wired in (per `08_Decision-Logs/ADR-0001-trader-intelligence-company.md`).
+No step in this runbook computes, authorizes, or overrides Green. Green is
+deterministic-engine output only, and that engine does not live in this repo.
 
 ---
 
 ## 1. One-transcript-at-a-time process
 
-Process exactly **one** transcript end to end. It must fully clear (or stop) at
-every gate before the next transcript begins — no batching, no parallel runs.
+Process **exactly one** transcript end to end. A transcript must fully clear (or
+stop) before the next begins — no batching, no parallel sources.
 
-| Step | Gate / action | Skill / file | Stop condition |
-|---|---|---|---|
-| 0 | **Direct-request hard stop** | `youtube-ingest` step 1 | Stop if the *request itself* asks for trade advice/signal, Green authorization, raw-transcript storage, transcript reproduction, or media download. |
-| 1 | **Rights/IP gate** (green/amber/red) | `00_System/Rights-IP-Gate.md`, `transcript-policy.md` | **Red → stop:** delete the raw transcript, log to `rejected/`, end. |
-| 2 | **source-quality** | `/source-quality` | Stop unless verdict is *Accept for claim-audit* or *Accept with restrictions*. |
-| 3 | **youtube-ingest** (runs **claim-audit** internally) | `/youtube-ingest` | Stops itself with *Needs source-quality first* / *Needs claim-audit first* / a blocked verdict. |
-| 4 | **trading-safety-review** | `/trading-safety-review` | Proceed only on *Pass* or *Pass with cautions*. |
-| 5 | **product-scope-review** | `/product-scope-review` | Proceed only on *In scope* or *In scope with constraints*. |
-| 6 | **Human promotion decision** | `promotion-rules.md` | Operator decides; rejection is expected and healthy. |
+| Step | Gate / action | Stop condition |
+|---|---|---|
+| 0 | **Direct-request hard stop** (skill step 1) | If the *request itself* asks for trade advice/signal, Green authorization, raw-transcript storage, transcript reproduction beyond a brief fair-use snippet, or media download → **stop**, cite [`transcript-policy.md`](transcript-policy.md) / `entrylens-trading-safety.md`. |
+| 1 | **Rights/IP gate** (green/amber/red) on the raw transcript — [`00_System/Rights-IP-Gate.md`](../00_System/Rights-IP-Gate.md), [`transcript-policy.md`](transcript-policy.md) step 2 | **Red → stop**, delete the raw transcript, log a one-line reason in `rejected/`. |
+| 2 | **`source-quality`** on the source | Reject / Human-review only / Block for safety → **stop** (skill won't run). |
+| 3 | **`youtube-ingest` skill** — produces the advisory note; **invokes `claim-audit` internally** on every factual/performance claim | Needs source-quality first / Needs claim-audit first / Blocked → **stop**. |
+| 4 | **`trading-safety-review`** on the produced note | Request changes / Block → **stop**, fix or drop the flagged item, re-run. |
+| 5 | **`product-scope-review`** on the produced note | Needs trading-safety-review / Needs ADR / Defer / Out of scope-block → **stop**, route accordingly. |
+| 6 | **Human promotion decision** via [`promotion-rules.md`](promotion-rules.md) | Promotion is always manual and optional. Clearing the gates never auto-promotes anything. |
 
-Steps 0–1 are doctrine-mandatory pre-gates that the bare four-skill chain does
-not include — run them first, every time.
-
----
+Steps 0–1 are doctrine-required pre-gates that the bare four-gate chain
+(`source-quality → claim-audit → trading-safety-review → product-scope-review`)
+omits; they are mandatory here.
 
 ## 2. Where raw transcript text may temporarily exist
 
-- **Preferred: in-session only.** The `youtube-ingest` skill is read-only and
-  writes nothing; paste the transcript into the session, process it, and let it
-  fall out of memory.
-- **If it must touch disk:** `06_YouTube-Lesson-Library/raw-transcripts/`
-  **only** — gitignored, local machine only, scratch space that may be wiped at
-  any time. Never paste raw transcript text into any other path, and never into
-  a tracked file.
-- **Extract, don't archive.** The raw transcript is never the durable record; if
-  a packet/lesson is lost, re-deriving it from the raw transcript is acceptable,
-  but the raw transcript itself is never the brain (`transcript-policy.md`).
-
----
+- **In-session only.** The advisory skill path writes nothing to disk — paste the
+  transcript into the session, process it, keep nothing.
+- If text *must* touch disk, the **only** permitted location is
+  `06_YouTube-Lesson-Library/raw-transcripts/` — gitignored, local-only scratch
+  that may be wiped at any time ([`transcript-policy.md`](transcript-policy.md)).
+- Never paste raw transcript into any tracked path (no `inbox/`, no `packets/`,
+  no note body, no commit message). **Extract, don't archive.**
 
 ## 3. Raw transcripts are never committed
 
-Confirmed and enforced:
+Confirmed and enforced. `.gitignore` carries `**/raw-transcripts/`, so that
+folder's contents can never be staged. Before any commit on a transcript run:
 
-- `.gitignore` carries `**/raw-transcripts/` (plus `**/raw-screenshots/`,
-  `**/raw-clips/`, `**/raw-uploads/`), so the scratch folder and its contents are
-  never staged.
-- Do **not** add a `.gitkeep` (or any file) to `raw-transcripts/` — the folder
-  stays untracked.
-- **Pre-commit check (every run):** `git status --porcelain` must show **no**
-  `raw-transcripts/` path and **no** pasted transcript body anywhere in the
-  staged diff. If it does, unstage and remove before committing.
-- Only **transformed, paraphrased** notes are ever committed. Quoting is limited
-  to brief, fair-use-defensible snippets regardless of the rights determination.
+- run `git status --porcelain` and confirm **no** `raw-transcripts/` path and
+  **no** transcript body appear in the diff;
+- do **not** add a `.gitkeep` (or any file) to `raw-transcripts/` — the folder
+  stays untracked by design.
 
----
+The raw transcript is never the brain. If a packet/lesson is lost, re-deriving it
+from a local raw transcript is acceptable; the raw transcript itself is never the
+durable record.
 
 ## 4. Sanitized note destination
 
 | Output | Destination | Notes |
 |---|---|---|
-| Transformed note (metadata + paraphrased notes) | `06_YouTube-Lesson-Library/packets/` | The "packet" stage — never a verbatim transcript dump. |
-| Durable lesson | `06_YouTube-Lesson-Library/lessons/` | Uses `lesson-template.md`. |
-| Audited claims | `00_System/Claim-Index.md` | Human step; only post-`claim-audit`. |
-| EntryLens-adjacent candidates | `03_EntryLens/Predicate-Candidates/` | **Only** via the EntryLens promotion lock — never written directly from ingest. Every line `HUMAN-REVIEW ONLY:`. |
+| Transformed note (metadata + paraphrased notes) | `06_YouTube-Lesson-Library/packets/` | Never a verbatim transcript dump; quote only where fair-use-defensible. |
+| Durable lesson | `06_YouTube-Lesson-Library/lessons/` | Uses [`lesson-template.md`](lesson-template.md). |
+| Audited claims | [`00_System/Claim-Index.md`](../00_System/Claim-Index.md) | Human step; only claim-audit-passed claims. |
+| EntryLens-adjacent candidates | [`03_EntryLens/Predicate-Candidates/`](../03_EntryLens/Predicate-Candidates/_index.md) | **Only** via the separate EntryLens promotion lock, never directly from ingest. |
 
-Not `07_Research-Library/` (that is for non-YouTube general staging), and never
-any EntryLens runtime surface. Terminology note: YouTube output is a
-**lesson/packet**, not an "EntryLens note." Only a labeled, deterministic
-predicate subset ever reaches EntryLens, and only through promotion.
+It is **not** `07_Research-Library/` (that's non-YouTube general staging) and
+**not** any EntryLens runtime surface. Terminology: a YouTube source becomes a
+**lesson/packet** here; only a labeled *deterministic predicate* subset ever
+reaches EntryLens, and only by promotion. The pipeline subfolders are created on
+first write — except `raw-transcripts/`, which stays local/untracked. Per the
+current task constraint, **do not write any packet/lesson/source note until
+explicitly approved.**
 
-First-run note: the pipeline subfolders (`packets/`, `lessons/`, …) do not
-physically exist yet; they are created on first write. `raw-transcripts/` is the
-exception — it stays local and untracked.
+## 5. Exact command/prompt for running youtube-ingest
 
----
+Skills are human-invoked. Run, in order:
 
-## 5. Exact command / prompt for running youtube-ingest
+1. `/source-quality` — paste/describe the source; record the verdict and date.
+2. `/youtube-ingest` — supply the source-quality verdict inline, e.g.:
 
-Run these in order in Claude Code:
+   > `/youtube-ingest` — "Ingest this transcript, one source. source-quality
+   > verdict: **Accept with restrictions** (paraphrase only), 2026-06-20. Run
+   > `claim-audit` on every factual/performance claim. Reference: <title / creator
+   > / URL>. [Transcript pasted for in-session processing only — not to be
+   > committed or stored.]"
 
-1. **Source-quality first:**
-   ```
-   /source-quality
-   ```
-   Supply the source identity (title, creator, date, URL/location, type) and the
-   transcript reference. Record the verdict.
+   The skill stops with **Needs source-quality first** if no verdict is supplied,
+   and **Needs claim-audit first** if a claim needs auditing and claim-audit
+   hasn't run.
+3. `/claim-audit` — if any claim still needs an explicit audit pass.
+4. `/trading-safety-review` — on the produced note.
+5. `/product-scope-review` — on the produced note.
 
-2. **Then youtube-ingest**, supplying the source-quality verdict inline (the
-   skill stops with *Needs source-quality first* otherwise):
-   ```
-   /youtube-ingest
-   ```
-   > Ingest this transcript, one transcript only. source-quality verdict:
-   > `Accept with restrictions (paraphrase only), 2026-06-20`. Run `claim-audit`
-   > on every factual/performance claim before marking anything supported.
-   > Paraphrase only; timestamps as concept pointers, not excerpts. [paste the
-   > transcript for in-session processing — do not commit it].
+## 6. Required labels — HUMAN-REVIEW ONLY
 
-3. **Then the downstream reviews** on the produced note:
-   ```
-   /trading-safety-review
-   /product-scope-review
-   ```
-   (`/claim-audit` is invoked inside `youtube-ingest`; run it standalone only if
-   you need to re-audit a specific claim.)
+Every EntryLens-adjacent line in the note lives under the schema section
+`## EntryLens candidate material — HUMAN-REVIEW ONLY` and is prefixed
+`HUMAN-REVIEW ONLY:`. Sub-types:
 
-If a required input is missing, the skill returns *Needs source-quality first*
-or *Needs claim-audit first* — supply it and re-run; do not work around it.
+- `HUMAN-REVIEW ONLY: candidate predicate — <observable, falsifiable condition>`
+- `HUMAN-REVIEW ONLY: candidate replay-fixture idea — <historical scenario to test>`
+- `HUMAN-REVIEW ONLY: product hypothesis — <idea>`
 
----
-
-## 6. Required labels — HUMAN-REVIEW ONLY candidates
-
-Every EntryLens-adjacent item lives under the skill's
-`## EntryLens candidate material — HUMAN-REVIEW ONLY` section, and **every line**
-carries the prefix `HUMAN-REVIEW ONLY:`. Sub-types:
-
-- `HUMAN-REVIEW ONLY: candidate predicate — <observable, falsifiable, deterministic condition>`
-- `HUMAN-REVIEW ONLY: candidate replay-fixture idea — <historical scenario to test the predicate; observation only>`
-- `HUMAN-REVIEW ONLY: product hypothesis — <staged idea for human review>`
-
-These are staged proposals only — never wired in, never self-authorized
-(ADR-0001). A candidate line is **never** a trade recommendation, entry/exit,
-contract/strike/expiration, sizing/stop/target, or probability/edge/win-rate/
-expected-return claim. Anything that can only be stated in that form is dropped
-to *Rejected / no-use*, not laundered through "candidate" language.
-
----
+These are **staged proposals only — never wired in, never self-authorized**
+(see [ADR-0001](../08_Decision-Logs/ADR-0001-trader-intelligence-company.md)).
+A candidate line is never a trade recommendation, entry/exit, contract, strike,
+sizing, stop, target, or probability/edge/win-rate/expected-return claim. If an
+item can only be stated as advice, it is dropped to Rejected/no-use instead.
 
 ## 7. Downstream gate order
 
 `source-quality → claim-audit → trading-safety-review → product-scope-review`
-(with the doctrine pre-gates from §1 ahead of them). Verdict sets and
-pass-conditions:
+(with the step 0–1 pre-gates ahead of it). Verdict sets and pass-conditions:
 
-| Gate | Verdicts (verbatim) | Proceed only if |
+| Gate | Verdicts | Proceed only on |
 |---|---|---|
-| `source-quality` | Accept for claim-audit \| Accept with restrictions \| Human-review only \| Reject \| Block for safety | Accept for claim-audit / Accept with restrictions |
-| `claim-audit` (internal) | Pass \| Pass with caveats \| Block until sourced \| Block for safety | Claim marked *supported* only on Pass / Pass with caveats |
-| `trading-safety-review` | Pass \| Pass with cautions \| Request changes \| Block | Pass / Pass with cautions |
-| `product-scope-review` | In scope \| In scope with constraints \| Needs trading-safety-review \| Needs ADR \| Defer \| Out of scope / block | In scope / In scope with constraints |
+| `source-quality` | Accept for claim-audit · Accept with restrictions · Human-review only · Reject · Block for safety | an **Accept\*** |
+| `claim-audit` (internal to the skill) | Pass · Pass with caveats · Block until sourced · Block for safety | only Pass / Pass-with-caveats claims may be marked **supported** |
+| `trading-safety-review` | Pass · Pass with cautions · Request changes · Block | **Pass / Pass with cautions** |
+| `product-scope-review` | In scope · In scope with constraints · Needs trading-safety-review · Needs ADR · Defer · Out of scope / block | **In scope / In scope with constraints** |
 
-Run `trading-safety-review` **before** `product-scope-review` — safety before
-shape. The two are companions and cross-flag each other: a finding that is
-trade-/signal-/Green-/broker-adjacent sets *Trading-safety-review needed = yes*;
-product-scope-review judges shape, not safety, and never clears trade/signal/
-Green/broker content on its own.
+Run `trading-safety-review` **before** `product-scope-review` (safety before
+shape). The two are companions and cross-flag each other: a trade-/signal-/Green-/
+broker-adjacent finding in scope review sets *Trading-safety-review needed = yes*,
+and product-scope drift in the safety review names `product-scope-review`. Scope
+review judges *shape*, not *safety*, and never clears trade/signal/Green/broker
+content on its own.
 
----
+## 8. Worked example — generic momentum-trading video (hypothetical, no real ingest)
 
-## 8. Worked example — generic momentum-trading video (hypothetical)
+**Source (paraphrased):** a creator describes a "momentum continuation" idea —
+price breaking above a prior swing high on rising volume — and says *"I buy the
+breakout, target the next resistance, this works about 70% of the time."*
 
-> Illustrative only — no real ingest. Source: a creator describes a
-> breakout-above-prior-swing-high "momentum continuation" concept and says
-> *"I buy the breakout, target the next resistance, this works about 70% of the
-> time."*
-
-- **Step 1 — Rights/IP gate:** video, restricted-use-by-default → **amber**
-  (paraphrase only; no verbatim beyond a fair-use snippet).
-- **Step 2 — source-quality:** creator and date identified → **Accept with
-  restrictions** (paraphrase only). (No date or pure marketing hype would →
-  *Human-review only* → stop.)
-- **Step 3 — youtube-ingest (claim-audit internal):**
-  - *Paraphrased summary:* "Creator describes a momentum-continuation concept
-    around a breakout above a prior swing high with rising volume."
-  - *Timestamped concept:* `~04:10 — breakout-above-prior-high concept with
-    volume confirmation (paraphrased)`.
-  - *The "~70% of the time" claim* → claim-audit **Block until sourced** + a
-    probability/edge safety flag → filed under *Unsupported / needs-source*,
-    never marked supported, never adopted.
-  - *The "I buy the breakout / target resistance" instruction* → dropped to
-    *Rejected / no-use* (stating it would require trade-recommendation framing).
-  - *Safe transformation (the teaching point)* — the only extractable items:
-    - `HUMAN-REVIEW ONLY: candidate predicate — completed-bar close above the
-      most recent prior swing high (observable, falsifiable; a structural
-      condition, not a buy signal)`
+- **Step 1 — Rights/IP gate →** amber (video, restricted-use-by-default;
+  paraphrase only).
+- **Step 2 — `source-quality` →** Accept with restrictions (paraphrase only).
+- **Step 3 — `youtube-ingest` skill:**
+  - *Paraphrased summary:* creator describes a breakout-above-prior-high
+    momentum-continuation concept with volume confirmation.
+  - *Timestamped concept:* `~04:10 — breakout-above-prior-high concept with volume
+    (paraphrased)`.
+  - *"~70% of the time"* → `claim-audit` **Block until sourced** + probability/edge
+    safety flag → filed under **Unsupported / needs-source**, never adopted.
+  - *"I buy the breakout / target the next resistance"* → a trade recommendation
+    with entry/target → **dropped to Rejected / no-use** (cannot be stated without
+    trade-recommendation framing).
+  - *Useful patterns (non-advisory):* "breakout above a prior high with rising
+    volume is a commonly cited momentum-continuation *concept*" — descriptive only.
+  - *EntryLens candidate material — HUMAN-REVIEW ONLY:*
+    - `HUMAN-REVIEW ONLY: candidate predicate — completed-bar close above the most
+      recent prior swing high (observable, falsifiable; a structural condition, not
+      a buy signal)`
     - `HUMAN-REVIEW ONLY: candidate replay-fixture idea — historical bars where a
       completed bar closed above a prior swing high with volume above its N-bar
-      average (observation only; no outcome or edge claim)`
-  - *Risks/caveats:* "Source asserts an unsupported win-rate; treat as
-    marketing/speculation."
-  - *Skill verdict:* **Ready for human review.**
-- **Step 4 — trading-safety-review:** the note is non-advisory (edge claim and
-  buy instruction already dropped) → **Pass with cautions** (caution: the dropped
-  claims must stay dropped; the predicate is phrased as a condition, not a
-  signal).
-- **Step 5 — product-scope-review:** the predicate candidate is staged
-  HUMAN-REVIEW ONLY, not wired → **In scope with constraints** (constraint: it may
-  advance only via the EntryLens promotion lock and must never become a live
-  scanner/alert).
-- **Outcome:** safe lesson + a labeled candidate; nothing promoted without a
-  separate manual decision.
+      average (observation only; no outcome/edge claim)`
+  - *Verdict:* **Ready for human review** (gates cleared; advice + edge claims
+    dropped; real, safe content remains).
+- **Step 4 — `trading-safety-review` →** Pass with cautions (caution: the dropped
+  win-rate and buy/target language must stay dropped; the predicate is phrased as a
+  condition, not a signal).
+- **Step 5 — `product-scope-review` →** In scope with constraints (constraint: the
+  predicate candidate may advance only via the EntryLens promotion lock; it must
+  not become a live scanner, alert, or signal).
 
----
+**Teaching point:** the raw *"buy the breakout, 70% win rate"* material is
+transformed into a deterministic, observable predicate **candidate** held
+HUMAN-REVIEW ONLY — the advice and edge claims are dropped, not laundered through
+"candidate" language.
 
 ## 9. Definition of Done
 
 **Runbook DoD (this file):** exists at `06_YouTube-Lesson-Library/workflow.md`;
-sequences the full chain including the two doctrine pre-gates; cites (does not
-copy) the skills, template, and policy files; duplicates no schema; introduces no
-engine code, automation, or template rewrite.
+sequences the full chain including the two pre-gates; cites (does not copy) the
+skill/template/policy files; duplicates no schema; introduces no engine code,
+automation, or template rewrite.
 
 **Per-transcript-run DoD:**
-- [ ] Direct-request hard stop cleared.
-- [ ] Rights/IP gate run; not Red.
-- [ ] source-quality = Accept for claim-audit / Accept with restrictions.
-- [ ] claim-audit run on every factual/performance claim.
-- [ ] trading-safety-review = Pass / Pass with cautions.
-- [ ] product-scope-review = In scope / In scope with constraints.
-- [ ] Zero raw transcript committed (`git status` clean of `raw-transcripts/`).
-- [ ] Every EntryLens candidate line prefixed `HUMAN-REVIEW ONLY:`.
-- [ ] Green, if referenced anywhere, is verbatim.
-- [ ] Note lands only in `packets/` (→ `lessons/` if promoted); nothing written
-      to `03_EntryLens/` except via the EntryLens promotion lock.
-- [ ] Any promotion done via `promotion-rules.md` with human approval.
 
----
+- [ ] Direct-request hard stop cleared.
+- [ ] Rights/IP gate run and not Red.
+- [ ] `source-quality` returned an Accept\* verdict (recorded).
+- [ ] `claim-audit` run on every factual/performance claim; only passed claims
+      marked supported.
+- [ ] `trading-safety-review` = Pass / Pass with cautions.
+- [ ] `product-scope-review` = In scope / In scope with constraints.
+- [ ] `git status` shows **zero** raw transcript / `raw-transcripts/` path
+      committed.
+- [ ] Every EntryLens candidate line prefixed `HUMAN-REVIEW ONLY:`.
+- [ ] Green, if referenced anywhere, appears verbatim.
+- [ ] Sanitized note lands only in `packets/` (and `lessons/` if promoted);
+      nothing written to `03_EntryLens/` except via the EntryLens promotion lock.
+- [ ] Any promotion done manually via [`promotion-rules.md`](promotion-rules.md).
 
 ## 10. Evidence to record in a proof log after the first real run
 
-Model the entry on `09_Proof-Logs/product-scope-review-first-live-runs.md`
-(`Templates/proof-log.md` frontmatter: `id` · `date` · `linked_decision:
-ADR-0001`). Record:
+Model the entry on
+[`09_Proof-Logs/product-scope-review-first-live-runs.md`](../09_Proof-Logs/product-scope-review-first-live-runs.md).
+Capture:
 
-- Source identity — title / creator / date — **reference only, no raw
-  transcript**; rights-gate color.
-- source-quality verdict.
-- claim-audit tallies: counts of supported / unsupported / blocked claims.
-- Which advice/edge claims were correctly **dropped** (e.g. the win-rate claim,
-  the buy instruction).
-- trading-safety-review and product-scope-review verdicts.
-- Confirmation no raw path was committed (`git status` evidence).
-- Confirmation every EntryLens candidate line is labeled `HUMAN-REVIEW ONLY:`.
-- Green reprinted verbatim if it was referenced.
-- Destination(s) written (`packets/`, and `lessons/` if promoted).
-- Verdict (usable / pass), known limitations, recommended next proof.
-- Follow-up: add the matching row to `00_System/Proof-Index.md` (typically
-  outside a single task's allowed-file scope — note it as deferred).
-
----
-
-## Source-of-truth files
-
-`Master-Blueprint-V1.md` §7 (learning refinery) and §1 (EntryLens status /
-Green); `00_System/Rights-IP-Gate.md`; this folder's `transcript-policy.md`,
-`source-quality-rules.md`, `lesson-template.md`, `promotion-rules.md`;
-`Templates/youtube-ingest.md`; and the skills `.claude/skills/source-quality`,
-`/claim-audit`, `/youtube-ingest`, `/trading-safety-review`,
-`/product-scope-review`. ADR-0001
-(`08_Decision-Logs/ADR-0001-trader-intelligence-company.md`).
+- `id`, `date`, `linked_decision: ADR-0001`.
+- Source identity — title / creator / date, **reference only; no raw transcript**.
+- Rights-gate color and `source-quality` verdict.
+- `claim-audit` tallies: supported / unsupported / blocked.
+- Which advice/edge claims were correctly **dropped** (e.g. win-rate, buy/target
+  instructions).
+- `trading-safety-review` and `product-scope-review` verdicts.
+- Confirmation no raw path was committed (paste the clean `git status` evidence).
+- Confirmation every EntryLens candidate line is HUMAN-REVIEW ONLY.
+- Green reproduced verbatim if it was referenced.
+- Destination actually written (`packets/`, and `lessons/` if promoted).
+- Verdict (usable / pass), known limitations, and the recommended next proof.
+- The matching `00_System/Proof-Index.md` ledger row (add it, or record it as a
+  deferred follow-up if that file is outside the run's allowed-file scope).
