@@ -29,3 +29,4 @@ implemented under `.claude/skills/`.
 | claim-audit | `.claude/skills/claim-audit/SKILL.md` | V1 core | Built |
 | source-quality | `.claude/skills/source-quality/SKILL.md` | V1 core | Built |
 | research-ingest | `.claude/skills/research-ingest/SKILL.md` | V1 core | Built |
+| youtube-ingest | `.claude/skills/youtube-ingest/SKILL.md` | Immediate | Built |

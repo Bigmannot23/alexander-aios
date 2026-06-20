@@ -198,3 +198,81 @@ change works.
   built) — `youtube-ingest`'s pre-reserved row 2 is untouched,
   since it remains a narrower, source-type-specific skill distinct from
   this general-purpose one.
+
+## 2026-06-20
+
+- Ran `route-task` on the incoming task before authoring anything, per
+  the routing skill's own procedure: classified as System =
+  Alexander-AIOS brain/ClaudeOps, Work class = Immediate, Safety class =
+  Research only, Claude surface = Claude Code, model = Sonnet, with no
+  hard-stop rule firing — confirming the task was clear to proceed before
+  any file was touched.
+- Authored the fifth Alexander-AIOS skill, `youtube-ingest`
+  (`.claude/skills/youtube-ingest/SKILL.md`): the video/course/podcast/
+  transcript-specific specialization of `research-ingest`, stricter about
+  timestamps, transcript handling, and copyright because video/course
+  sources carry materially higher reproduction risk than a generic
+  article or paper. Like `research-ingest`, it requires a prior
+  source-quality verdict as input — stopping with **Needs source-quality
+  first** if none is supplied, and with **Blocked by source-quality** or
+  **Blocked for trading safety** if that verdict is Reject, Block for
+  safety, or Human-review only, with the same narrow exception for a
+  short cautionary/rejection note. It treats video/course/podcast/
+  transcript sources as **restricted-use-by-default** unless rights are
+  clearly permissive, recording that determination explicitly in a
+  dedicated Rights/use restriction section — a stricter default posture
+  than `research-ingest` takes, reflecting the higher copyright exposure
+  of video/course material. Timestamp references are extracted only as
+  paraphrased concept pointers (e.g. "~12:30 — creator explains a
+  breakout-confirmation concept"), never as transcript reproduction, with
+  quoting limited to brief fair-use-defensible snippets regardless of the
+  rights determination. Every factual/performance claim is gated through
+  `claim-audit` before being marked supported — if claim-audit hasn't run,
+  is unavailable, or errors, the skill stops with **Needs claim-audit
+  first** rather than guessing. A request-side hard stop, independent of
+  the source's own content, fires immediately if the user's own request —
+  not the source — asks for a trade recommendation/signal or asks Claude
+  to authorize or compute EntryLens Green, citing
+  `.claude/rules/entrylens-trading-safety.md` and reprinting the Green
+  definition verbatim where relevant. Every EntryLens-adjacent item
+  (candidate predicates, candidate rules, replay-fixture ideas, product
+  hypotheses) is extracted only under a `HUMAN-REVIEW ONLY:` prefix, per
+  ADR-0001's "staged proposals only, never self-authorized" boundary. It
+  never stores raw transcript, copied course text, video/audio, clips,
+  screenshots, or uploads regardless of the rights determination, never
+  writes to canonical doctrine or product files
+  (`Master-Blueprint-V1.md`, `CLAUDE.md`, `OPERATING_DOCTRINE.md`,
+  `.claude/rules/**`, `03_EntryLens/**`, `04_AlphaLab/**`,
+  `Claim-Index.md`, `Decision-Index.md`) or any
+  `06_YouTube-Lesson-Library/**` pipeline folder (`inbox/`,
+  `raw-transcripts/`, `packets/`, `lessons/`, `promoted/**`), never
+  promotes a candidate predicate/rule/replay-fixture/hypothesis into
+  implementation, never recommends trades/setups/entries/exits/contracts/
+  sizing/stops/targets/probability/edge/win-rate/expected-return, and
+  never computes or authorizes EntryLens Green. The skill's own "Source of
+  truth" section explicitly disambiguates it from the pre-existing,
+  different artifact `Templates/youtube-ingest.md` — a manual,
+  rights-gated, rubric-scored 10-step checklist that drives the real
+  `06_YouTube-Lesson-Library` pipeline (raw-transcripts → packets →
+  lessons → promotion). `youtube-ingest` the skill is a separate, lighter,
+  standalone advisory layer that produces a single human-review note and
+  never writes into that pipeline or replaces the template's rights/rubric
+  mechanics — it cites the template and `transcript-policy.md` rather than
+  duplicating or superseding them. Ends with one of six verdicts (ready
+  for human review / needs source-quality first / needs claim-audit first
+  / blocked by source-quality / blocked for trading safety / rejected — no
+  useful action) and includes 5 test cases (using lettered sub-cases to
+  cover all 9 required hard-stop triggers without exceeding the 5-case
+  ceiling, the same compression technique `source-quality`'s boundary-
+  contrast case already uses). Used `source-quality/SKILL.md`'s
+  single-quoted YAML frontmatter form rather than research-ingest's bare
+  form, since `git log` confirms this repo previously hit a real invalid-
+  YAML-frontmatter bug on an unquoted multi-clause description (fixed in
+  commit `0f66094`). Added a row to `.claude/skills/_index.md` and flipped
+  row 2 of `01_ClaudeOps/Skills/_index.md`'s first-skills table from
+  Proposed to Built — that row was pre-reserved for this skill by the
+  blueprint's own §8.1 table, so this is a flip in place rather than a new
+  row appended — and corrected its Output column, which had described
+  `Templates/youtube-ingest.md`'s pipeline output rather than this
+  skill's actual output. Now 5 first skills built; header and footer
+  counts in both index files updated to match.
