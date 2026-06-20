@@ -111,7 +111,7 @@ platform, date ingested>
 
 ## Gate inputs
 - source-quality verdict: <verdict, date/source>
-- claim-audit status: <pass / pass with caveats / not yet run / blocked>
+- claim-audit status: <Pass | Pass with caveats | Block until sourced | Block for safety | Not yet run>
 
 ## Source identity
 - Title:
