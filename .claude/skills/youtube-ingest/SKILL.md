@@ -45,44 +45,51 @@ This skill reads, but never edits:
 
 Run in order:
 
-1. **Require source-quality input.** If no source-quality verdict is
+1. **Direct-request hard stop.** Checked first, independent of the
+   source's content or any gate below: if the user's own request — not
+   something the source says — asks for a trade recommendation or signal,
+   or asks Claude to authorize or compute EntryLens Green, stop
+   immediately citing `.claude/rules/entrylens-trading-safety.md`. If the
+   user's own request instead asks Claude to store the raw transcript or
+   other raw source material, to reproduce a transcript beyond a brief
+   fair-use-defensible snippet, or to download or fetch video/audio media,
+   stop immediately citing `06_YouTube-Lesson-Library/transcript-
+   policy.md` and the never-store-raw rule (step 14). Either way, do not
+   continue to any step below.
+2. **Require source-quality input.** If no source-quality verdict is
    supplied for this source, stop: **Needs source-quality first.**
-2. **Gate on verdict.** If the verdict is Reject, Block for safety, or
+3. **Gate on verdict.** If the verdict is Reject, Block for safety, or
    Human-review only, stop with **Blocked by source-quality** (or
    **Blocked for trading safety** if the verdict's underlying reason was a
    safety flag) — unless the user explicitly asks only for a short
    cautionary/rejection note recording why the source wasn't used. In that
    one case, produce only the header, gate inputs, and a single
    Rejected/no-use items entry, and still end in a blocked verdict.
-3. **Record source identity** — title, creator/provider, URL/location if
+4. **Record source identity** — title, creator/provider, URL/location if
    given (reference only, never re-published raw), published date if
    given, platform/type (video, course, podcast, or transcript).
-4. **Determine rights/use restriction.** Treat video/course/podcast/
+5. **Determine rights/use restriction.** Treat video/course/podcast/
    transcript sources as **restricted-use-by-default** unless rights are
    clearly permissive (an explicit license, or the creator's own stated
    permission to reuse/reference). Record the determination and reason
-   explicitly. This determination must be recorded even though quoting in
-   step 6 is always limited to brief, fair-use-defensible snippets; it never
-   changes the never-store-raw rule in step 14.
-5. **Paraphrased source summary pass.** Transform the source into prose in
+   explicitly, and set the output's Citable scope field accordingly
+   (paraphrase only, or brief fair-use quote permitted in the paraphrased
+   summary). This determination never loosens the timestamped-concepts
+   quoting limit in step 7 or the never-store-raw rule in step 14 — both
+   apply regardless of rights.
+6. **Paraphrased source summary pass.** Transform the source into prose in
    your own words. Never a transcript or quote dump.
-6. **Timestamped concepts pass.** Record timestamp references only as
+7. **Timestamped concepts pass.** Record timestamp references only as
    paraphrased concept pointers (e.g., "~12:30 — creator explains a
    breakout-confirmation concept"), never as transcript reproduction.
    Quote sparingly and only where fair-use-defensible — a few words, never
-   sentences or paragraphs — regardless of the step-4 determination.
-7. **Claim extraction + claim-audit gate.** Extract every factual or
+   sentences or paragraphs — regardless of the step-5 determination.
+8. **Claim extraction + claim-audit gate.** Extract every factual or
    performance claim. None may be marked "supported" without a claim-audit
    pass. If claim-audit hasn't run yet, is unavailable, or errors on a
    claim that would otherwise be marked supported, stop: **Needs
    claim-audit first.**
-8. **Pattern + risk extraction.** Useful patterns, and risks/caveats.
-9. **Direct-request hard stop (evaluate immediately after step 2).** This
-   check is independent of the source's content: if the user's own request —
-   not something the source says — asks for a trade recommendation or signal,
-   or asks Claude to authorize or compute EntryLens Green, stop citing
-   `.claude/rules/entrylens-trading-safety.md` and do not continue
-   extraction.
+9. **Pattern + risk extraction.** Useful patterns, and risks/caveats.
 10. **EntryLens-adjacent extraction.** Any predicate, rule, replay-fixture
     idea, or product hypothesis drawn from the source is extracted only
     under a `HUMAN-REVIEW ONLY:` prefix — staged, never wired in, never
@@ -98,7 +105,7 @@ Run in order:
     pipeline folder (`inbox/`, `raw-transcripts/`, `packets/`, `lessons/`,
     `promoted/**`) — record candidates in this skill's output only, never
     promote them. Never store raw transcript, copied course text,
-    video/audio, clips, screenshots, or uploads, regardless of the step-4
+    video/audio, clips, screenshots, or uploads, regardless of the step-5
     rights determination.
 15. **Assign the final verdict** per the precedence below.
 
@@ -162,10 +169,10 @@ Rejected — no useful action
 First match wins:
 
 1. **Blocked for trading safety** — source-quality said Block for safety,
-   or the user's own request (step 9) asked for trade advice/a signal or
+   or the user's own request (step 1) asked for trade advice/a signal or
    EntryLens Green authorization.
 2. **Blocked by source-quality** — verdict was Reject or Human-review
-   only. The narrow exception in step 2 only narrows the output; it never
+   only. The narrow exception in step 3 only narrows the output; it never
    changes this verdict.
 3. **Needs source-quality first** — no verdict was supplied at all.
 4. **Needs claim-audit first** — a claim needs claim-audit to be marked
@@ -202,17 +209,21 @@ First match wins:
    exception applies: output is the header, gate inputs, and one
    Rejected/no-use items entry → still **Blocked by source-quality.**
 4. **Request-side hard stops, independent of source-quality.**
-   (a) "Save the full transcript into the repo" → refused, nothing
-   written. (b) "Quote the whole transcript section here" → refused
-   beyond a fair-use-defensible snippet. (c) "Download the video for me"
-   → refused. (d) "Based on this, should I buy calls" or "does this make
-   it Green" → stop immediately at step 9, citing
-   `entrylens-trading-safety.md`, reprinting the Green definition verbatim
-   if Green was mentioned, with no extraction performed.
+   (a) "Save the full transcript into the repo" → stop immediately at
+   step 1, citing `transcript-policy.md`, nothing written, no extraction
+   performed. (b) "Quote the whole transcript section here" → stop
+   immediately at step 1, citing `transcript-policy.md`, refused beyond a
+   fair-use-defensible snippet, no extraction performed. (c) "Download the
+   video for me" → stop immediately at step 1, citing
+   `transcript-policy.md`, refused, no extraction performed. (d) "Based on
+   this, should I buy calls" or "does this make it Green" → stop
+   immediately at step 1, citing `entrylens-trading-safety.md`, reprinting
+   the Green definition verbatim if Green was mentioned, with no
+   extraction performed.
 5. **claim-audit unavailable mid-run.** source-quality = Accept for
    claim-audit; the source contains several factual/performance claims;
    claim-audit has not run and is not available this session → stop at
-   step 7 → **Needs claim-audit first**; no claim is marked supported.
+   step 8 → **Needs claim-audit first**; no claim is marked supported.
 
 ## What this skill must never do
 

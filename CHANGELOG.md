@@ -276,3 +276,40 @@ change works.
   `Templates/youtube-ingest.md`'s pipeline output rather than this
   skill's actual output. Now 5 first skills built; header and footer
   counts in both index files updated to match.
+- PR #16 (this skill) drew a GitHub Copilot review with 5 inline findings.
+  An automated auto-fix process pushed partial fixes for all 5 directly to
+  the branch before this session's own fixes landed, and the PR merged
+  before either competed. Re-checked all 5 against the merged `main`: 3
+  (the missing "podcast" in `01_ClaudeOps/Skills/_index.md`'s Trigger
+  column, the output schema's claim-audit status values, and the missing
+  `00_System/` prefix on the Claim-Index/Decision-Index paths in this
+  entry) were already fixed correctly and needed no further action. 2 were
+  only superficially patched — the direct-request hard stop (originally
+  step 9) got a parenthetical "(evaluate immediately after step 2)" note
+  instead of an actual reorder, still leaving every extraction step
+  textually before the safety check; and the rights/use-restriction step's
+  false claim about changing step 6's quoting limit was removed without
+  restoring any link to the output schema's Citable scope field, leaving
+  it dangling. Fixed both directly on `claude/amazing-cerf-esuchp`: moved
+  the direct-request hard stop to step 1 and renumbered the procedure 1-15
+  so the safety check actually runs first, and rewrote the rights/use-
+  restriction step to set the Citable scope field while keeping the
+  timestamped-concepts quoting limit and the never-store-raw rule
+  unconditional. Updated every downstream step-number cross-reference in
+  Verdict precedence and Test cases to match. These fixes are delivered
+  via follow-up PR #17, opened after the user explicitly asked for one —
+  not as a direct push to the already-merged PR #16.
+- PR #17 itself then drew a GitHub Copilot review (Request changes) with
+  2 findings: step 1's hard stop only covered trade-advice/Green requests,
+  not the raw-transcript-storage, transcript-reproduction, or media-
+  download requests the PR description also scoped in; and this
+  changelog's own "No new PR opened for this follow-up" sentence had gone
+  stale the moment PR #17 was opened. Fixed both on
+  `claude/amazing-cerf-esuchp`: step 1 now also hard-stops, before any
+  extraction, on requests to store raw material, reproduce a transcript
+  beyond a brief fair-use-defensible snippet, or download/fetch media —
+  citing `transcript-policy.md` and the step-14 never-store-raw rule
+  rather than the trading-safety rule used for the trade-advice/Green
+  case — and test case 4(a)-(c) updated to reflect that these are now
+  step-1 enforcement, not just generic refusals. The stale changelog
+  sentence above was rewritten to name PR #17 directly.
