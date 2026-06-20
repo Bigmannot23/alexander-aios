@@ -76,10 +76,10 @@ Run in order:
    claim that would otherwise be marked supported, stop: **Needs
    claim-audit first.**
 8. **Pattern + risk extraction.** Useful patterns, and risks/caveats.
-9. **Direct-request hard stop.** This check is independent of the
-   source's content: if the user's own request — not something the source
-   says — asks for a trade recommendation or signal, or asks Claude to
-   authorize or compute EntryLens Green, stop immediately citing
+9. **Direct-request hard stop (evaluate immediately after step 2).** This
+   check is independent of the source's content: if the user's own request —
+   not something the source says — asks for a trade recommendation or signal,
+   or asks Claude to authorize or compute EntryLens Green, stop citing
    `.claude/rules/entrylens-trading-safety.md` and do not continue
    extraction.
 10. **EntryLens-adjacent extraction.** Any predicate, rule, replay-fixture
