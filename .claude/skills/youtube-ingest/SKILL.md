@@ -61,8 +61,9 @@ Run in order:
    transcript sources as **restricted-use-by-default** unless rights are
    clearly permissive (an explicit license, or the creator's own stated
    permission to reuse/reference). Record the determination and reason
-   explicitly. This determination changes what's citable in step 6 — it
-   never changes the never-store-raw rule in step 14.
+   explicitly. This determination must be recorded even though quoting in
+   step 6 is always limited to brief, fair-use-defensible snippets; it never
+   changes the never-store-raw rule in step 14.
 5. **Paraphrased source summary pass.** Transform the source into prose in
    your own words. Never a transcript or quote dump.
 6. **Timestamped concepts pass.** Record timestamp references only as
