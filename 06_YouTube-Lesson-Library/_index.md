@@ -11,7 +11,10 @@ The YouTube learning refinery pipeline: `inbox/` (new links/transcripts to
 process) → `raw-transcripts/` (gitignored, local-only) → `packets/`
 (rights+quality+claim metadata) → `lessons/` (transformed reusable memory)
 → `promoted/candidates/` → `promoted/accepted/` or `promoted/rejected/` →
-top-level `rejected/` for anything that never made it past packet stage.
+top-level `rejected/` for anything that never made it past packet stage. See
+`workflow.md` for the step-by-step, one-transcript-at-a-time operating procedure
+that sequences this pipeline with the `youtube-ingest` skill and the downstream
+review gates.
 
 ## What does not belong here
 
