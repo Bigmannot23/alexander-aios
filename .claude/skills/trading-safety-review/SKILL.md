@@ -179,8 +179,7 @@ all, reprint the verbatim definition:
 | # | Location | Quoted phrase / paraphrased issue | Risk category | Class | Severity | Required fix |
 |---|---|---|---|---|---|---|
 | 1 | line 12 | "..." | buy/sell | unsafe rec/signal | block | <replacement> |
-(write "No findings." instead of a table body if the artifact is clean)
-
+(write "No findings." instead of a table body if the artifact is clean; for quoted-only-to-reject hits, keep the matching Class but set Severity=pass and Required fix="None — quoted-only-to-reject")
 ### Green definition check
 (if Green is not referenced, write: "Not applicable — Green not referenced.")
 Reprint verbatim:
