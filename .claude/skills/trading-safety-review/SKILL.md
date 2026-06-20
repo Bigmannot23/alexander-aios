@@ -13,8 +13,8 @@ classifies each finding, assigns a severity, supplies exact safe
 replacement wording, and ends with one of four verdicts. It is itself
 non-advisory: it never edits files by default, never recommends trades,
 never ingests or writes source notes, never stores raw material, and never
-computes or authorizes EntryLens Green. It may be invoked directly by a
-human, typically after `route-task` recommends it when an incoming artifact is trading-adjacent.
+computes or authorizes EntryLens Green. It is invoked by a human decision,
+potentially informed by a `route-task` classification when an artifact is trading-adjacent.
 
 ## Source of truth — read only
 

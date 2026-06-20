@@ -320,8 +320,7 @@ change works.
   this is non-advisory meta-safety tooling, clear to proceed.
 - Authored the sixth Alexander-AIOS skill, `trading-safety-review`
   (`.claude/skills/trading-safety-review/SKILL.md`): a read-first,
-  human-invoked (or invoked by a human acting on a `route-task`
-  recommendation when an artifact is trading-adjacent) safety reviewer that audits any artifact — text,
+  human-invoked safety reviewer that audits any artifact — text,
   plans, skills, research notes, product ideas, PR diffs, content drafts —
   line/item by line/item for EntryLens trading-safety drift. Where
   `claim-audit` and `source-quality` each carry a built-in side-check
