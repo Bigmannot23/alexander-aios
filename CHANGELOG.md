@@ -276,3 +276,26 @@ change works.
   `Templates/youtube-ingest.md`'s pipeline output rather than this
   skill's actual output. Now 5 first skills built; header and footer
   counts in both index files updated to match.
+- PR #16 (this skill) drew a GitHub Copilot review with 5 inline findings.
+  An automated auto-fix process pushed partial fixes for all 5 directly to
+  the branch before this session's own fixes landed, and the PR merged
+  before either competed. Re-checked all 5 against the merged `main`: 3
+  (the missing "podcast" in `01_ClaudeOps/Skills/_index.md`'s Trigger
+  column, the output schema's claim-audit status values, and the missing
+  `00_System/` prefix on the Claim-Index/Decision-Index paths in this
+  entry) were already fixed correctly and needed no further action. 2 were
+  only superficially patched — the direct-request hard stop (originally
+  step 9) got a parenthetical "(evaluate immediately after step 2)" note
+  instead of an actual reorder, still leaving every extraction step
+  textually before the safety check; and the rights/use-restriction step's
+  false claim about changing step 6's quoting limit was removed without
+  restoring any link to the output schema's Citable scope field, leaving
+  it dangling. Fixed both directly on `claude/amazing-cerf-esuchp`: moved
+  the direct-request hard stop to step 1 and renumbered the procedure 1-15
+  so the safety check actually runs first, and rewrote the rights/use-
+  restriction step to set the Citable scope field while keeping the
+  timestamped-concepts quoting limit and the never-store-raw rule
+  unconditional. Updated every downstream step-number cross-reference in
+  Verdict precedence and Test cases to match. No new PR opened for this
+  follow-up, per the merge notification's instruction not to reopen or
+  open a new PR for the same change without being asked.
