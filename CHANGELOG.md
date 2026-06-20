@@ -313,3 +313,50 @@ change works.
   case — and test case 4(a)-(c) updated to reflect that these are now
   step-1 enforcement, not just generic refusals. The stale changelog
   sentence above was rewritten to name PR #17 directly.
+- Authored the sixth Alexander-AIOS skill, `trading-safety-review`
+  (`.claude/skills/trading-safety-review/SKILL.md`): a read-first,
+  human-invoked (or `route-task`-invoked when an artifact is
+  trading-adjacent) safety reviewer that audits any artifact — pasted
+  text, plans, skill definitions, research notes, product ideas, PR diffs,
+  content drafts — line/item by line/item for EntryLens trading-safety
+  drift. Unlike the side-check safety scans already embedded in
+  `claim-audit` and `source-quality`, this is the standalone, line-level,
+  fix-suggesting reviewer those skills lack. It scans all 14 required risk
+  categories (trade recommendations; buy/sell; calls/puts; entry/exit;
+  contracts/strikes/expirations; sizing/stops/targets; probability/edge/
+  win-rate/expected-return; market-scanner behavior; alert/signal
+  behavior; broker/account/order/P&L/payment/banking surfaces; AI-trading-
+  assistant behavior; Claude-authorized Green; Green redefined as
+  buy/sell/edge/probability/approval; user-personalized securities
+  advice), classifies each finding into one of five distinctions (safe
+  plan-alignment, human-review candidate, unsafe recommendation/signal,
+  product-scope drift, legal/compliance caution), assigns a per-finding
+  severity (pass / caution / request changes / block), gives exact safe
+  replacement wording, and ends with one of four verdicts (Pass / Pass
+  with cautions / Request changes / Block). A quote-context gate runs
+  before any severity is judged so that unsafe language quoted *only as
+  something to reject* — negative examples, test fixtures, a rules file's
+  own prohibition list, this skill quoting itself — is flagged
+  present-but-safe and never fires the hard-stop; this is what stops the
+  reviewer from false-blocking the rules files, ADR-0001, the sibling
+  skills, and itself. Whenever Green is referenced it reprints the verbatim
+  Green definition and checks both that Green is not redefined as
+  buy/sell/edge/probability/approval and that no model is computing or
+  authorizing it. The hard-stop returns **Block** when an artifact, as
+  live content, directly recommends trades, authorizes/computes Green,
+  implies buy/sell/entry/exit, includes contracts/sizing/stops/targets,
+  claims edge/probability/win-rate/expected-return, or introduces broker/
+  account/order/P&L/payment/banking surfaces. On product-scope drift it
+  names `product-scope-review` as the next/companion skill, explicitly
+  noting that skill is not built yet. References
+  `.claude/rules/entrylens-trading-safety.md`,
+  `.claude/rules/research-source-quality.md`, and ADR-0001 as source of
+  truth, and includes 5 test cases (incl. the quoted-to-reject case that
+  must Pass and a live hard-stop breach that must Block). It is itself
+  non-advisory: never edits files by default, never recommends trades,
+  never computes or authorizes Green, never ingests, never writes source
+  notes, never stores raw material, and never becomes a script/hook/
+  routine. Added a row to `.claude/skills/_index.md` and appended row 14
+  to `01_ClaudeOps/Skills/_index.md`'s first-skills table (header and
+  footer counts bumped 5→6); updated `CURRENT_STATE.md` to list six built
+  skills. Now 6 first skills built.
