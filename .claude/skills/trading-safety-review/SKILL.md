@@ -14,7 +14,7 @@ replacement wording, and ends with one of four verdicts. It is itself
 non-advisory: it never edits files by default, never recommends trades,
 never ingests or writes source notes, never stores raw material, and never
 computes or authorizes EntryLens Green. It may be invoked directly by a
-human, or by `route-task` when an incoming artifact is trading-adjacent.
+human, typically after `route-task` recommends it when an incoming artifact is trading-adjacent.
 
 ## Source of truth — read only
 
