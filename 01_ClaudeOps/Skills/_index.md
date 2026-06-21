@@ -57,3 +57,5 @@ Build ~10–12 of these, not 40. 7 built so far (route-task, claim-audit,
 source-quality, research-ingest, youtube-ingest, trading-safety-review,
 product-scope-review) — this repo is at Block 1 of 7 (see
 `CURRENT_STATE.md`).
+
+Not a skill yet: `lesson-decision-brief` lives at `01_ClaudeOps/Runbooks/lesson-decision-brief.md` in runbook / manual-proof stage; it graduates to `.claude/skills/decision-brief/SKILL.md` only after 3–5 clean manual runs.
