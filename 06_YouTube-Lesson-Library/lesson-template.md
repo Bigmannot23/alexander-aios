@@ -36,6 +36,9 @@ published_date:
 ingested_date:
 rights_status:        # green | amber | red — see 00_System/Rights-IP-Gate.md
 quality_score:         # 0-20 — see 00_System/Source-Quality-Rubric.md
+input_type:           # transcript | ai-summary | hybrid | first-hand
+summary_provenance:   # tool/model that produced the summary, or n/a
+input_trust:          # primary | secondary-unverified (ai-summary is always secondary-unverified)
 ```
 
 **Extracted concepts** (definitions/mechanics only):

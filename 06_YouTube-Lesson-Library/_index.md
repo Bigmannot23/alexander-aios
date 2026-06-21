@@ -8,7 +8,7 @@ source_of_truth: Master-Blueprint-V1.md §7
 ## What belongs here
 
 The YouTube learning refinery pipeline: `inbox/` (new links/transcripts to
-process) → `raw-transcripts/` (gitignored, local-only) → `packets/`
+process) → `raw-transcripts/` or `raw-summaries/` (gitignored, local-only) → `packets/`
 (rights+quality+claim metadata) → `lessons/` (transformed reusable memory)
 → `promoted/candidates/` → `promoted/accepted/` or `promoted/rejected/` →
 top-level `rejected/` for anything that never made it past packet stage. See
@@ -42,12 +42,19 @@ schema), and the four policy files in this folder
 |---|---|---|
 | 1. Inbox | `inbox/` | No |
 | 2. Raw transcript | `raw-transcripts/` | **Yes** — local only |
+| 2-alt. Raw AI summary (used instead of a transcript) | `raw-summaries/` | **Yes** — local only |
 | 3. Packet | `packets/` | No |
 | 4. Lesson | `lessons/` | No |
 | 5a. Promotion candidate | `promoted/candidates/` | No |
 | 5b. Accepted | `promoted/accepted/` | No |
 | 5c. Rejected (post-candidate) | `promoted/rejected/` | No |
 | Rejected (pre-candidate, e.g. failed rights/quality gate) | `rejected/` | No |
+
+**AI-generated summaries** are a permitted **secondary, unverified** input that
+can stand in for a raw transcript. On disk they are handled exactly like raw
+transcripts (`raw-summaries/`, gitignored, never committed) and carry extra
+trust constraints downstream — see `transcript-policy.md` and
+`source-quality-rules.md`.
 
 ## Status
 

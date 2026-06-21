@@ -43,3 +43,22 @@ file only adds YouTube-specific application notes.
 
 Score using `Templates/source-quality.md`, store the result in the
 source's packet.
+
+## AI-generated summaries — reliability cap
+
+When the input is an AI-generated summary rather than a transcript or first-hand
+viewing, the five checks above still apply to the **underlying video**, but the
+summary itself is a secondary, machine-generated derivative:
+
+- **Reliability is capped at medium — never high.** A summary can hallucinate or
+  misattribute, so it can never reach the top credibility/evidence band on the
+  strength of the summary alone, no matter how strong the underlying channel is.
+- **Record the restriction "verify all claims against the primary source before
+  any promotion."** The summary is not a citable source; a claim attributed only
+  to it stays Unsupported / Needs-source through claim-audit.
+- **Provenance is mandatory.** Capture which tool/model produced the summary in
+  the packet front-matter (`summary_provenance:`) and set
+  `input_trust: secondary-unverified` (see `lesson-template.md`).
+
+This does not bypass the rights gate or claim-audit — all gates remain
+independent and all must pass.

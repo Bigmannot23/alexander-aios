@@ -66,6 +66,7 @@ can **stop** the run; a stop on one transcript never spills into another.
 | # | Step | Tool / file | Stop condition |
 |---|---|---|---|
 | 0 | **Direct-request hard stop** | skill step 1 | User asks for trade advice/signal, Green authorization, raw-transcript storage, transcript reproduction beyond a brief fair-use snippet, or media download → refuse, do not proceed. |
+| 0b | **Input-provenance & reproduction check** (when the input is an AI summary) | `transcript-policy.md` → "AI-generated summaries as input" | Record `input_type`, `summary_provenance`, `input_trust=secondary-unverified`; keep the summary in `raw-summaries/` / in-session; verbatim transcript chunks beyond fair use → paraphrase out (raw-transcript rule). |
 | 1 | **Rights/IP gate (green / amber / red)** | `../00_System/Rights-IP-Gate.md`, `transcript-policy.md` | **Red** → delete the raw transcript, log a one-line reason in `rejected/`, stop. |
 | 2 | **source-quality** | `/source-quality` | Verdict is Reject / Human-review only / Block for safety → stop (record why). |
 | 3 | **youtube-ingest** (claim-audit invoked inside) | `/youtube-ingest` | Skill returns a blocked/needs-* verdict → stop and resolve the named gap first. |
@@ -73,27 +74,31 @@ can **stop** the run; a stop on one transcript never spills into another.
 | 5 | **product-scope-review** | `/product-scope-review` | Verdict Needs trading-safety-review / Needs ADR / Defer / Out of scope-block → stop and route accordingly. |
 | 6 | **Human promotion decision** | `promotion-rules.md` | Operator alone decides; nothing auto-promotes. |
 
-Steps 0–1 are mandatory pre-gates required by doctrine even though the
-"download" chain only names steps 2–5.
+Steps 0–1 (and 0b for AI-summary inputs) are mandatory pre-gates required by
+doctrine even though the "download" chain only names steps 2–5.
 
-## 2. Where raw transcript text may temporarily exist
+## 2. Where raw transcript or summary text may temporarily exist
 
 - **In-session only** is the default: the advisory skill reads pasted text and
   writes nothing.
 - If the text must touch disk, it goes **only** in
   `06_YouTube-Lesson-Library/raw-transcripts/` — gitignored, local-machine-only
   scratch space that may be wiped at any time.
-- Never paste transcript text into any tracked file (no packet, lesson, note,
-  index, or commit body). "Extract, don't archive."
+- An **AI-generated summary** used as input is handled identically: in-session by
+  default, or `06_YouTube-Lesson-Library/raw-summaries/` (gitignored, local-only)
+  if it must touch disk — never a tracked file.
+- Never paste transcript or summary text into any tracked file (no packet,
+  lesson, note, index, or commit body). "Extract, don't archive."
 
 ## 3. Raw transcripts are never committed
 
 Confirmed and enforced:
 
-- `.gitignore` carries `**/raw-transcripts/` (plus `**/raw-screenshots/`,
-  `**/raw-clips/`, `**/raw-uploads/`).
+- `.gitignore` carries `**/raw-transcripts/` and `**/raw-summaries/` (plus
+  `**/raw-screenshots/`, `**/raw-clips/`, `**/raw-uploads/`).
 - **Pre-commit check:** run `git status --porcelain` and confirm no
-  `raw-transcripts/` path and no transcript body appear in the staged set.
+  `raw-transcripts/` or `raw-summaries/` path, and no transcript or summary
+  body, appear in the staged set.
 - Do **not** add a `.gitkeep` to `raw-transcripts/` — the folder stays untracked
   on purpose.
 - The raw transcript is never the brain: if a packet/lesson is lost,
@@ -172,6 +177,14 @@ is dropped to Rejected/no-use, not laundered through "candidate" language.
 | `trading-safety-review` | Pass / Pass with cautions / Request changes / Block | **Pass / Pass with cautions** |
 | `product-scope-review` | In scope / In scope with constraints / Needs trading-safety-review / Needs ADR / Defer / Out of scope-block | **In scope / In scope with constraints** |
 
+**AI-summary inputs — tightened conditions:** at `source-quality`, reliability
+is capped ≤ medium (never high) and the restriction "verify against the primary
+source" is recorded; at `claim-audit`, a claim attributed only to the summary is
+Unsupported / Needs-source and is **never** marked supported on the summary's
+authority (the summary is not a citable source). The human promotion decision
+additionally requires those load-bearing claims to be verified against the
+primary source, not just the summary.
+
 Run `trading-safety-review` **before** `product-scope-review` (safety before
 shape). They are companions and cross-flag each other: a trade-/signal-/Green-/
 broker-adjacent finding in scope review sets "Trading-safety-review needed? =
@@ -238,7 +251,12 @@ automation, and no template rewrite.
 - the note lands only in `packets/` (and `lessons/` if promoted);
 - any promotion went through `promotion-rules.md` with human approval;
 - nothing was written to `03_EntryLens/` except via the EntryLens promotion
-  lock.
+  lock;
+- **if the input was an AI summary:** `input_type`, `summary_provenance`, and
+  `input_trust: secondary-unverified` are recorded in the note; no claim is
+  marked supported on the summary's authority; `git status` is also clean of any
+  `raw-summaries/` path; and any load-bearing claim is verified against the
+  primary source before promotion.
 
 ## 10. Evidence to record in proof logs after the first real run
 
@@ -258,5 +276,9 @@ After the first real transcript run (not before), add a proof log under
 - confirmation every candidate line is `HUMAN-REVIEW ONLY:`;
 - Green reprinted verbatim if it was referenced;
 - destination written (`packets/`, and `lessons/` if promoted);
+- for an AI-summary input: `input_type`, `summary_provenance`, and the
+  primary-source verification status of each load-bearing claim (which moved
+  from Needs-source to Supported, which did not), plus confirmation no
+  `raw-summaries/` path was committed;
 - verdict (usable / pass), known limitations, and the recommended next proof;
 - a follow-up note to add the matching row to `../00_System/Proof-Index.md`.
