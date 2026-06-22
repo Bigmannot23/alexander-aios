@@ -39,3 +39,4 @@ format:
 |---|---|---|---|---|---|
 | ADR-0001 | 2026-06-19 | Claude becomes a trader-intelligence company around EntryLens (Claude does not trade) | bigmannot23 | no | [ADR-0001](../08_Decision-Logs/ADR-0001-trader-intelligence-company.md) |
 | ADR-0002 | 2026-06-21 | Keep manual permission gating; reject dangerously-skip-permissions as a default working mode | bigmannot23 | no | [ADR-0002](../08_Decision-Logs/ADR-0002-permission-posture.md) |
+| DIRECTION-0001 | 2026-06-22 | Market-Context Evidence Layer — two-evidence-type model (screen + trader-declared context predicates); DIRECTION CAPTURED, candidate, gated, not approved for build | bigmannot23 | no | [DIRECTION-0001](../08_Decision-Logs/DIRECTION-0001-market-context-evidence-layer.md) |
