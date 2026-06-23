@@ -55,9 +55,10 @@ A single cross-repo register of known blockers, debt, and process constraints sp
 - **AIOS side (this session):** **VERIFIED stale** — `08_Decision-Logs/_index.md` Status prose reads verbatim "One decision logged." while `00_System/Decision-Index.md` already ledgers five entries (ADR-0001, ADR-0002, ADR-0003, ADR-0004, DIRECTION-0001).
 - **What it blocks:** Nothing (record accuracy only). Tracked here, NOT fixed this sprint.
 
-## BD-0006 — PC-0002 N-of-M close-counting semantics
+## BD-0006 — PC-0002 N-of-M close-counting semantics — **RESOLVED**
 
-- **Tag:** BLOCKS-BUILD (scoped)
+- **Resolution:** Pinned by EL-ADR-015 (entrylens-platform, commit 16c89fb): N-of-M close-counting is **consecutive / anywhere-in-M / calls-only**.
+- **Tag:** BLOCKS-BUILD (scoped) — now cleared
 - **Repo:** Cross-repo (PC-0002 row in AIOS; EL-ADR-014 authoring in EntryLens).
 - **What it is:** Whether PC-0002 reclaim N-of-M close-counting is consecutive vs cumulative within the M window is not pinned.
 - **What it blocks:** Building PC-0002.

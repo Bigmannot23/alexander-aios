@@ -48,9 +48,9 @@ Cross-repo links 1, 2, 3 confirmed via EntryLens STATE REPORT @ origin/main 60a4
    REPORT; an AIOS session cannot re-confirm directly (see BD-0007). Puts side is
    deferred — the puts direction returns fail-closed "unclear" and the puts tieRule
    naming is unpinned (`00_System/Blockers-Debt-Ledger.md` **BD-0008** / BD-PC0001-PUTS).
-5. **PC-0002** — **BLOCKED.** N-of-M close-counting (consecutive vs cumulative within
-   the M window) is not pinned — `00_System/Blockers-Debt-Ledger.md` **BD-0006**.
-   Both the in-repo PC-0002 row and EL-ADR-014 are verified SILENT/UNRESOLVED on this.
+5. **PC-0002** — **BUILDABLE.** N-of-M close-counting is now PINNED by EL-ADR-015
+   (entrylens-platform, commit 16c89fb): consecutive / anywhere-in-M / calls-only —
+   `00_System/Blockers-Debt-Ledger.md` **BD-0006 (RESOLVED)**.
 6. **PC-0003** — **PENDING.** Row staged RAW in-repo
    (`04_AlphaLab/Predicate-Candidates/_index.md`); build cross-repo, no recorded blocker.
 7. **Sigma-band (PC-0005) + float-replay lock** — **BLOCKED.** PC-0005 row staged RAW
@@ -63,13 +63,14 @@ Cross-repo links 1, 2, 3 confirmed via EntryLens STATE REPORT @ origin/main 60a4
 
 ## CURRENT POSITION
 
-**Next buildable = PC-0002 (VWAP reclaim) — BLOCKED on BD-0006.** PC-0001 (calls)
-shipped to EntryLens `main` (commit 68c28f5, merged; status as of last EntryLens STATE
-REPORT — an AIOS session cannot re-confirm directly, see BD-0007). PC-0002 is the next
-slice in the chain but is BLOCKED: its N-of-M close-counting (consecutive vs cumulative
-within the M window) is not pinned — `00_System/Blockers-Debt-Ledger.md` **BD-0006**.
-Nothing past PC-0002 is buildable until its blocker clears (sigma-band → BD-0002; real
-locking → BD-0001). PC-0001 puts completion is separately deferred (BD-0008).
+**Next buildable = PC-0002 (VWAP reclaim) — BUILDABLE (BD-0006 resolved).** PC-0001
+(calls) shipped to EntryLens `main` (commit 68c28f5, merged; status as of last EntryLens
+STATE REPORT — an AIOS session cannot re-confirm directly, see BD-0007). PC-0002 is the
+next slice in the chain and is now BUILDABLE: its N-of-M close-counting is PINNED by
+EL-ADR-015 (entrylens-platform, commit 16c89fb) as consecutive / anywhere-in-M /
+calls-only — `00_System/Blockers-Debt-Ledger.md` **BD-0006 (RESOLVED)**. Sigma-band
+(BD-0002) and real locking (BD-0001) remain blocked; PC-0001 puts completion is
+separately deferred (BD-0008).
 
 ## Pointers
 
