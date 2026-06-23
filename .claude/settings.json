@@ -52,10 +52,15 @@
       "Bash(git stash*)", "Bash(git cherry-pick*)", "Bash(git revert*)",
       "Bash(git tag*)"
     ],
-    "allow": [
-      "Read",
-      "Bash(git status*)", "Bash(git diff*)", "Bash(git log*)", "Bash(git show*)"
-    ]
-  },
+   "allow": [
+  "Read",
+  "Bash(git status*)", "Bash(git diff*)", "Bash(git log*)", "Bash(git show*)",
+  "Bash(git add*)", "Bash(git commit*)", "Bash(git push*)",
+  "Bash(git checkout*)", "Bash(git branch*)"
+],
+"ask": [
+  "Write", "Edit",
+  "Bash(git merge*)", "Bash(git rebase*)", "Bash(git reset*)", "Bash(git rm*)"
+]
   "hooks": {}
 }
