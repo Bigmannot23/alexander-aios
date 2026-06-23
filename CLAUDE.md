@@ -55,6 +55,12 @@ routines. No Dispatch. See
 [`01_ClaudeOps/Hooks/README.md`](01_ClaudeOps/Hooks/README.md) and
 [`01_ClaudeOps/Routines/README.md`](01_ClaudeOps/Routines/README.md).
 
+## Session end
+
+After a `git push`: report the result and STOP. Do NOT open or monitor PRs,
+poll CI, subscribe to webhooks, or set timers. The human reviews and merges
+manually.
+
 ## Routing map
 
 | If the work is about... | Go to |

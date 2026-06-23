@@ -43,9 +43,11 @@ Cross-repo links 1, 2, 3 confirmed via EntryLens STATE REPORT @ origin/main 60a4
    consecutive-vs-cumulative counting UNRESOLVED — consistent with BD-0006. The
    AIOS-side RAW rows for PC-0001/PC-0002 are also DONE (in-repo):
    `04_AlphaLab/Predicate-Candidates/_index.md`. Verified on EntryLens main 60a4410.
-4. **PC-0001 build (calls)** — **PENDING** (← CURRENT POSITION). All three
-   prerequisites (links 1-3) are now confirmed present on EntryLens main. The build
-   itself is not yet done. See CURRENT POSITION.
+4. **PC-0001 build (calls)** — **DONE (cross-repo, verified).** Calls branch shipped
+   to EntryLens `main` (commit 68c28f5, merged). Status as of last EntryLens STATE
+   REPORT; an AIOS session cannot re-confirm directly (see BD-0007). Puts side is
+   deferred — the puts direction returns fail-closed "unclear" and the puts tieRule
+   naming is unpinned (`00_System/Blockers-Debt-Ledger.md` **BD-0008** / BD-PC0001-PUTS).
 5. **PC-0002** — **BLOCKED.** N-of-M close-counting (consecutive vs cumulative within
    the M window) is not pinned — `00_System/Blockers-Debt-Ledger.md` **BD-0006**.
    Both the in-repo PC-0002 row and EL-ADR-014 are verified SILENT/UNRESOLVED on this.
@@ -61,12 +63,13 @@ Cross-repo links 1, 2, 3 confirmed via EntryLens STATE REPORT @ origin/main 60a4
 
 ## CURRENT POSITION
 
-**Next buildable = PC-0001 (calls)** — the first true end-to-end predicate
-(price-to-VWAP position at bar close). Its three prerequisites are CONFIRMED present on
-EntryLens main (links 1-3, verified @ 60a4410): real four-state status type, real
-definition in EL-ADR-014, real VWAP line. PC-0001 is buildable now. Nothing past it is
-buildable until its blocker clears (PC-0002 → BD-0006; sigma-band → BD-0002; real
-locking → BD-0001).
+**Next buildable = PC-0002 (VWAP reclaim) — BLOCKED on BD-0006.** PC-0001 (calls)
+shipped to EntryLens `main` (commit 68c28f5, merged; status as of last EntryLens STATE
+REPORT — an AIOS session cannot re-confirm directly, see BD-0007). PC-0002 is the next
+slice in the chain but is BLOCKED: its N-of-M close-counting (consecutive vs cumulative
+within the M window) is not pinned — `00_System/Blockers-Debt-Ledger.md` **BD-0006**.
+Nothing past PC-0002 is buildable until its blocker clears (sigma-band → BD-0002; real
+locking → BD-0001). PC-0001 puts completion is separately deferred (BD-0008).
 
 ## Pointers
 
