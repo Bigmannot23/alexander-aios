@@ -36,4 +36,8 @@ format once any exist:
 
 | ID | Date | Predicate (observable, falsifiable) | Source mistake/review | Promotion packet started? | Link |
 |---|---|---|---|---|---|
-| _none yet_ | | | | | |
+| PC-0001 | 2026-06-23 | RAW: Price-to-VWAP position at bar close — close vs VWAP at that bar, with a declared tie rule. Must-declare: D1 config + tie rule. | generic public VWAP definition (research extraction) | No | |
+| PC-0002 | 2026-06-23 | RAW: VWAP reclaim — a below->above close transition within a FINITE declared lookback, close-based. Must-declare: D1 config + finite lookback + close-based + N/M. | generic public VWAP definition (research extraction) | No | |
+| PC-0003 | 2026-06-23 | RAW: VWAP hold-above-N — last N consecutive closes above VWAP; reset on one close at/below. Must-declare: D1 config + N + fixed interval + explicit wick rule (default closes-only). | generic public VWAP definition (research extraction) | No | |
+| PC-0004 | 2026-06-23 | RAW GUARD (not a setup predicate): Session-VWAP maturity guard — >= K bars or >= M minutes since anchor; withholds evaluation until met. Must-declare: D2 anchor/reset + K or M. | generic public VWAP definition (research extraction) | No | |
+| PC-0005 | 2026-06-23 | RAW: VWAP sigma-band reach (touch or close-beyond at VWAP +/- k*sigma). Must-declare: k + side + condition type + timeframe. Sigma + line LOCKED by EL-ADR-010 (vol-weighted population std dev of TP about VWAP) and EL-ADR-011 (D1 line). HARD GATE before promotion: engine-level float-replay lock (accumulation order, precision, rounding) per replay-fixtures doctrine. | generic public VWAP definition (research extraction) | No | |
