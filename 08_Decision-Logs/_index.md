@@ -30,7 +30,9 @@ boundary. Routine task notes. The ledger view itself (that's
 
 ## Status
 
-One decision logged. `ADR-0001-trader-intelligence-company.md` (status:
-accepted, 2026-06-19) records the doctrine that Claude becomes a
-trader-intelligence company around EntryLens and does not trade. It also has
-a row in `00_System/Decision-Index.md`.
+Five decisions logged, each with a row in `00_System/Decision-Index.md`:
+ADR-0001 (trader-intelligence-company, accepted, 2026-06-19), ADR-0002
+(permission posture, 2026-06-21), DIRECTION-0001 (market-context evidence
+layer — direction captured, 2026-06-22), ADR-0003 (EntryLens verified-state
+record, 2026-06-22), and ADR-0004 (AlphaLab predicate-candidate register
+init, 2026-06-23).
