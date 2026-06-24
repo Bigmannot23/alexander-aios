@@ -30,9 +30,10 @@ boundary. Routine task notes. The ledger view itself (that's
 
 ## Status
 
-Five decisions logged, each with a row in `00_System/Decision-Index.md`:
+Seven decisions logged, each with a row in `00_System/Decision-Index.md`:
 ADR-0001 (trader-intelligence-company, accepted, 2026-06-19), ADR-0002
 (permission posture, 2026-06-21), DIRECTION-0001 (market-context evidence
 layer — direction captured, 2026-06-22), ADR-0003 (EntryLens verified-state
-record, 2026-06-22), and ADR-0004 (AlphaLab predicate-candidate register
-init, 2026-06-23).
+record, 2026-06-22), ADR-0004 (AlphaLab predicate-candidate register
+init, 2026-06-23), ADR-0005 (adopt FAST_EL_V1, 2026-06-24), and ADR-0006
+(EL-ADR-017 puts tieRule pinned + Lane B puts arc shipped, 2026-06-24).
