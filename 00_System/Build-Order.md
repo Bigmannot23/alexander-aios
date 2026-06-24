@@ -51,8 +51,11 @@ Cross-repo links 1, 2, 3 confirmed via EntryLens STATE REPORT @ origin/main 60a4
 5. **PC-0002** — **BUILDABLE.** N-of-M close-counting is now PINNED by EL-ADR-015
    (entrylens-platform, commit 16c89fb): consecutive / anywhere-in-M / calls-only —
    `00_System/Blockers-Debt-Ledger.md` **BD-0006 (RESOLVED)**.
-6. **PC-0003** — **PENDING.** Row staged RAW in-repo
-   (`04_AlphaLab/Predicate-Candidates/_index.md`); build cross-repo, no recorded blocker.
+6. **PC-0003** — **DONE (cross-repo, verified).** VWAP hold-above-N shipped to EntryLens
+   `main` (commit 82578cb, EL-ADR-016 Approved — Option C reset, N-only must-declare). Engine
+   suite now 904 tests and a **required CI gate.** Status as of the EntryLens facts transcribed
+   this session; an AIOS session cannot re-confirm directly (see BD-0007). AIOS-side RAW row
+   reconciled to EL-ADR-016 (`04_AlphaLab/Predicate-Candidates/_index.md`).
 7. **Sigma-band (PC-0005) + float-replay lock** — **BLOCKED.** PC-0005 row staged RAW
    in-repo; promotion hard-gated on the engine float-replay lock (accumulation order,
    precision, band-rounding) — **BD-0002**.
@@ -65,9 +68,11 @@ Cross-repo links 1, 2, 3 confirmed via EntryLens STATE REPORT @ origin/main 60a4
 
 **Next buildable = PC-0002 (VWAP reclaim) — BUILDABLE (BD-0006 resolved).** PC-0001
 (calls) shipped to EntryLens `main` (commit 68c28f5, merged; status as of last EntryLens
-STATE REPORT — an AIOS session cannot re-confirm directly, see BD-0007). PC-0002 is the
-next slice in the chain and is now BUILDABLE: its N-of-M close-counting is PINNED by
-EL-ADR-015 (entrylens-platform, commit 16c89fb) as consecutive / anywhere-in-M /
+STATE REPORT — an AIOS session cannot re-confirm directly, see BD-0007). PC-0003 (VWAP
+hold-above-N) has also shipped to EntryLens `main` (commit 82578cb, EL-ADR-016 Approved)
+ahead of PC-0002 in the chain, and the engine suite (now 904 tests) is a required CI gate.
+PC-0002 remains the next slice still unshipped and is BUILDABLE: its N-of-M close-counting
+is PINNED by EL-ADR-015 (entrylens-platform, commit 16c89fb) as consecutive / anywhere-in-M /
 calls-only — `00_System/Blockers-Debt-Ledger.md` **BD-0006 (RESOLVED)**. Sigma-band
 (BD-0002) and real locking (BD-0001) remain blocked; PC-0001 puts completion is
 separately deferred (BD-0008).
