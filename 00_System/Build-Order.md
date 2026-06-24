@@ -48,9 +48,11 @@ Cross-repo links 1, 2, 3 confirmed via EntryLens STATE REPORT @ origin/main 60a4
    REPORT; an AIOS session cannot re-confirm directly (see BD-0007). Puts side is
    deferred — the puts direction returns fail-closed "unclear" and the puts tieRule
    naming is unpinned (`00_System/Blockers-Debt-Ledger.md` **BD-0008** / BD-PC0001-PUTS).
-5. **PC-0002** — **BUILDABLE.** N-of-M close-counting is now PINNED by EL-ADR-015
-   (entrylens-platform, commit 16c89fb): consecutive / anywhere-in-M / calls-only —
-   `00_System/Blockers-Debt-Ledger.md` **BD-0006 (RESOLVED)**.
+5. **PC-0002** — **DONE (cross-repo, verified).** N-of-M close-counting PINNED by
+   EL-ADR-015 (entrylens-platform, commit 16c89fb): consecutive / anywhere-in-M /
+   calls-only — `00_System/Blockers-Debt-Ledger.md` **BD-0006 (RESOLVED)**. Shipped
+   (calls) to EntryLens `main` (commit 86a40c8). Status as of the EntryLens facts
+   transcribed this session; an AIOS session cannot re-confirm directly (see BD-0007).
 6. **PC-0003** — **DONE (cross-repo, verified).** VWAP hold-above-N shipped to EntryLens
    `main` (commit 82578cb, EL-ADR-016 Approved — Option C reset, N-only must-declare). Engine
    suite now 904 tests and a **required CI gate.** Status as of the EntryLens facts transcribed
@@ -59,23 +61,32 @@ Cross-repo links 1, 2, 3 confirmed via EntryLens STATE REPORT @ origin/main 60a4
 7. **Sigma-band (PC-0005) + float-replay lock** — **BLOCKED.** PC-0005 row staged RAW
    in-repo; promotion hard-gated on the engine float-replay lock (accumulation order,
    precision, band-rounding) — **BD-0002**.
-8. **Gate-casing before real locking** — **BLOCKED.** Lowercase `calls`/`puts` plans
-   can't lock through the uppercase Plan-Quality-Gate; needs a casing shim or gate
-   update before the engine locks a real plan — **BD-0001** (EL-ADR-012; vocab present
-   in EntryLens, gate-casing fix itself not yet done).
+8. **Gate-casing before real locking** — **DONE (cross-repo, verified).** The
+   Plan-Quality-Gate now accepts canonical lowercase `calls`/`puts` calls
+   (implements EL-ADR-012), so `plan-declaration-v1` plans lock through the gate —
+   real plan-lock now works. Shipped to EntryLens `main` (commit 47cb300); engine
+   suite now 919 tests, behind the required CI gate. **BD-0001 closed.** Status as
+   of the EntryLens facts transcribed this session; an AIOS session cannot re-confirm
+   directly (see BD-0007).
 
 ## CURRENT POSITION
 
-**Next buildable = PC-0002 (VWAP reclaim) — BUILDABLE (BD-0006 resolved).** PC-0001
-(calls) shipped to EntryLens `main` (commit 68c28f5, merged; status as of last EntryLens
-STATE REPORT — an AIOS session cannot re-confirm directly, see BD-0007). PC-0003 (VWAP
-hold-above-N) has also shipped to EntryLens `main` (commit 82578cb, EL-ADR-016 Approved)
-ahead of PC-0002 in the chain, and the engine suite (now 904 tests) is a required CI gate.
-PC-0002 remains the next slice still unshipped and is BUILDABLE: its N-of-M close-counting
-is PINNED by EL-ADR-015 (entrylens-platform, commit 16c89fb) as consecutive / anywhere-in-M /
-calls-only — `00_System/Blockers-Debt-Ledger.md` **BD-0006 (RESOLVED)**. Sigma-band
-(BD-0002) and real locking (BD-0001) remain blocked; PC-0001 puts completion is
-separately deferred (BD-0008).
+**Next target = UNDECIDED — pending a target-selection decision.** PC-0001, PC-0002,
+and PC-0003 (calls-only) have all shipped to EntryLens `main`: PC-0001 (commit 68c28f5),
+PC-0002 (commit 86a40c8), PC-0003 (commit 82578cb, EL-ADR-016 Approved). BD-0001 is now
+closed — the Plan-Quality-Gate accepts canonical lowercase `calls`/`puts` (EL-ADR-012), so
+real plan-lock works (commit 47cb300; engine suite now 919 tests, behind the required CI
+gate). Status on all of the above is as of the EntryLens facts transcribed this session; an
+AIOS session cannot re-confirm directly (see BD-0007).
+
+No next slice is buildable without a decision — the real candidates are all gated:
+
+- **PC-0004** — needs a defining ADR before it can be built.
+- **PC-0005 (sigma-band)** — hard-gated on the engine float-replay lock — **BD-0002**.
+- **Puts-side (BD-0008)** — needs the puts `tieRule` pinned before completion.
+
+Picking among these is a target-selection decision (decision log + Decision-Index), not a
+Build-Order call — not decided here.
 
 ## Pointers
 
