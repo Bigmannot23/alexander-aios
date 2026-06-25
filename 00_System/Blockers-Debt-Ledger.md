@@ -13,9 +13,10 @@ A single cross-repo register of known blockers, debt, and process constraints sp
 
 ---
 
-## BD-0001 — Gate-casing fix
+## BD-0001 — Gate-casing fix — **RESOLVED**
 
-- **Tag:** BLOCKS-BUILD
+- **Resolution:** Fixed in entrylens-platform — `normalizeDirection.ts` shim maps lowercase calls/puts → CALL/PUT; gate accepts and locks to identical hash. Proven by `bd-0001-direction-normalization.test.ts`. Build-order closed at commit 7ab9b77. Verified cross-repo by read-only EntryLens evidence pass this session.
+- **Tag:** BLOCKS-BUILD — now cleared
 - **Repo:** EntryLens-platform
 - **What it is:** Lowercase `calls`|`puts` plans can't lock through the current uppercase `CALL`/`PUT` Plan-Quality-Gate; needs a casing shim or a gate update.
 - **What it blocks:** The engine locking a real plan.
