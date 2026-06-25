@@ -67,9 +67,10 @@ A single cross-repo register of known blockers, debt, and process constraints sp
 - **In-repo check — what the PC-0002 row actually says (this session):** The live PC-0002 row reads: "RAW: VWAP reclaim — a below->above close transition within a FINITE declared lookback, close-based. Must-declare: D1 config + finite lookback + close-based + N/M." It lists "N/M" as a must-declare field and pins "close-based," but it is **SILENT on consecutive vs cumulative** counting within the M window. The row does NOT pin this.
 - **Reference:** EL-ADR-014 (claimed commit bf01c1c, PR #18) reportedly defines PC-0001 and PC-0002 but leaves this UNRESOLVED; it cited the AIOS register as staging-registry-of-record but did NOT read it, composing from the doctrine-passed extraction instead — all **UNVERIFIED (cross-repo — confirm in entrylens-platform).** EL-ADR-014, bf01c1c, and PR #18 do not appear in this repo.
 
-## BD-0008 — PC-0001 puts seam unimplemented
+## BD-0008 — PC-0001 puts seam unimplemented — **RESOLVED**
 
-- **Tag:** BLOCKS-BUILD (scoped)
+- **Resolution:** Puts side shipped — `tieRule` PINNED as Set A + mirror by EL-ADR-017 (entrylens-platform), PC-0001 puts merged to EntryLens `main` (PR #33). Recorded in ADR-0006. Verified cross-repo via the EntryLens facts transcribed this session.
+- **Tag:** BLOCKS-BUILD (scoped) — now cleared
 - **Repo:** Both repos
 - **What it is:** PC-0001 calls shipped to EntryLens `main` (commit 68c28f5, merged), but the puts side is not implemented. The PC-0001 puts direction returns fail-closed "unclear," and the puts-side `tieRule` option naming (`at_or_below` vs `strictly_below`?) is not pinned by EL-ADR-014; the canonical form belongs in the AIOS register. Code seam ref: `pc0001PositionAtClose.ts` comment "BD-PC0001-PUTS".
 - **What it blocks:** PC-0001 puts completion.
