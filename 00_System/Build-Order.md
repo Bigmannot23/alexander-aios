@@ -58,9 +58,12 @@ Cross-repo links 1, 2, 3 confirmed via EntryLens STATE REPORT @ origin/main 60a4
    suite now 1085 tests / 22 files and a **required CI gate.** Status as of the EntryLens facts transcribed
    this session; an AIOS session cannot re-confirm directly (see BD-0007). AIOS-side RAW row
    reconciled to EL-ADR-016 (`04_AlphaLab/Predicate-Candidates/_index.md`).
-7. **Sigma-band (PC-0005) + float-replay lock** — **BLOCKED.** PC-0005 row staged RAW
-   in-repo; promotion hard-gated on the engine float-replay lock (accumulation order,
-   precision, band-rounding) — **BD-0002**.
+7. **Sigma-band (PC-0005) + float-replay lock** — **DONE (cross-repo, verified).** The engine
+   float-replay lock (accumulation order, precision, band-rounding) is pinned by **EL-ADR-019**
+   (Accepted on entrylens `main`); PC-0005 sigma band + PP1–PP19 proof corpus shipped green
+   (PR #41) and PC-0005 `promotable` flipped false→true across all 6 spec mirrors (PR #42,
+   commit 0135dc6). entrylens `main` = 0e4ba03. **BD-0002 closed.** Status as of the EntryLens
+   facts transcribed this session; an AIOS session cannot re-confirm directly (see BD-0007).
 8. **Gate-casing before real locking** — **DONE (cross-repo, verified).** The
    Plan-Quality-Gate now accepts canonical lowercase `calls`/`puts` calls
    (implements EL-ADR-012), so `plan-declaration-v1` plans lock through the gate —
@@ -78,17 +81,23 @@ DONE**: puts `tieRule` PINNED as Set A + mirror by **EL-ADR-017**, PC-0001/0002/
 merged to EntryLens `main` (PR #33), resolving **BD-0008 / BD-PC0001-PUTS** (record: ADR-0006).
 BD-0001 is now closed — the Plan-Quality-Gate accepts canonical lowercase `calls`/`puts`
 (EL-ADR-012), so real plan-lock works (commit 47cb300; engine suite now 1085 tests / 22 files,
-behind the required CI gate). Status on all of the above is as of the EntryLens facts
+behind the required CI gate). The **PC-0005 float-replay gate is now closed too** — the
+engine-level float-replay lock is pinned by **EL-ADR-019** (Accepted on entrylens `main`);
+PC-0005 sigma band + PP1–PP19 proof corpus shipped green (PR #41), and PC-0005 `promotable`
+flipped false→true across all 6 spec mirrors (PR #42, commit 0135dc6). entrylens `main` = 0e4ba03.
+This clears **BD-0002**. Status on all of the above is as of the EntryLens facts
 transcribed this session; an AIOS session cannot re-confirm directly (see BD-0007).
 
-No next slice is buildable without a decision — the real candidates are all gated:
+No next slice is committed without a decision — with the float-replay gate cleared, the
+remaining real candidate is:
 
-- **PC-0004** — needs a defining ADR before it can be built.
-- **PC-0005 (sigma-band)** — hard-gated on the engine float-replay lock — **BD-0002**.
+- **PC-0004 (maturity guard)** — needs a defining ADR before it can be built; next candidate
+  pending that ADR.
 
-(Puts-side / BD-0008 is no longer a gated candidate — pinned by EL-ADR-017 and shipped, see above.)
+(PC-0005 (sigma-band) is no longer gated — the engine float-replay lock **BD-0002** is closed,
+see above. Puts-side / BD-0008 pinned by EL-ADR-017 and shipped.)
 
-Picking among these is a target-selection decision (decision log + Decision-Index), not a
+Picking the next target is a target-selection decision (decision log + Decision-Index), not a
 Build-Order call — not decided here.
 
 ## Pointers

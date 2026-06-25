@@ -22,9 +22,10 @@ A single cross-repo register of known blockers, debt, and process constraints sp
 - **What it blocks:** The engine locking a real plan.
 - **Reference:** EL-ADR-012 — **UNVERIFIED (cross-repo — confirm in entrylens-platform).** EL-ADR-012 does not appear anywhere in this repo.
 
-## BD-0002 — Engine float-replay lock
+## BD-0002 — Engine float-replay lock — **RESOLVED**
 
-- **Tag:** BLOCKS-BUILD (scoped)
+- **Resolution:** Locked by EL-ADR-019 (engine-level float-replay lock, Accepted on entrylens `main`). PC-0005 sigma band + PP1–PP19 proof corpus shipped green (PR #41); PC-0005 `promotable` flipped false→true across all 6 spec mirrors (PR #42, commit 0135dc6); code comments synced (PR #43). entrylens `main` = 0e4ba03, internally consistent, git-verified cross-repo this session.
+- **Tag:** BLOCKS-BUILD (scoped) — now cleared
 - **Repo:** EntryLens-platform
 - **What it is:** Float accumulation order, precision, and band-rounding must be locked for deterministic replay.
 - **What it blocks:** PC-0005 promotion. (The PC-0005 row in `04_AlphaLab/Predicate-Candidates/_index.md` already names this as a HARD GATE before promotion.)
