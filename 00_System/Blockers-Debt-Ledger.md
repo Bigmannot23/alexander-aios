@@ -83,3 +83,19 @@ A single cross-repo register of known blockers, debt, and process constraints sp
 - **What it is:** A Claude Code session is single-repo scoped — it cannot read the other repo's files (hit twice: PC-0001 build, and EL-ADR-014 authoring). Cross-repo tasks must be scoped so the SOURCE repo session reads and emits the needed content; never "read the other repo mid-build."
 - **What it blocks:** Nothing directly — a learned working constraint with no repo reference to verify.
 - **Note:** This item is the reason every EntryLens reference in BD-0001, BD-0002, BD-0003, BD-0005, and BD-0006 is tagged UNVERIFIED from an AIOS session.
+
+## BD-0009 — §2 structural unknown-param rejection unbuilt
+
+- **Tag:** STRUCTURAL
+- **Repo:** EntryLens-platform
+- **What it is:** `PLAN-DECLARATION-SPEC-V1.md` §2 claims forbidden contents are "barred by construction" (a structural unknown-parameter rejection) *and* caught by free-text guards. As transcribed from entrylens-platform this session, **no structural rejection exists**: no zod `.strict()`, no pydantic `extra="forbid"` envelope, no plan-declaration-v1 envelope validator. §2 currently rests entirely on the free-text guard (commit a2c7450, PR #45), which covers only the BOUNDABLE subset (win-rate, R-multiple/nR, sizing, price target, P&L, probability/odds, contract/vehicle). Colliding bare terms (risk / stop / edge / extended) and unknown declared params are caught nowhere. Expected home when built: `packages/engine/src/domain/` or alongside `validatePlan.ts`.
+- **What it blocks:** Nothing today (no build step depends on it). Open, not scheduled. A real doctrine-vs-code gap — the spec asserts a structural guarantee the code does not provide; latent correctness/safety debt, not a build stopper.
+- **Reference:** `PLAN-DECLARATION-SPEC-V1.md` §2; free-text enforcement commit a2c7450 (PR #45) — **UNVERIFIED (cross-repo — confirm in entrylens-platform).** The spec file and engine code live in EntryLens and are not checkable from an AIOS session (BD-0007); recorded as transcribed this session.
+
+## BD-0010 — §2 incidental-substring enforcement fragility
+
+- **Tag:** STRUCTURAL
+- **Repo:** EntryLens-platform
+- **What it is:** Within the §2 free-text guard (commit a2c7450, PR #45), the phrases "buyers defend" / "sellers defend" are caught only *incidentally* — via the legacy "buy" / "sell" substring in `FORBIDDEN_TERMS`, not by any rule that targets them. This is fragile: word-boundary tightening of that path (the same tightening PR #45 applied to the boundable terms) would silently un-catch them. Related soft-condition phrases — "not extended" / "support holds" / "bulls take control" — are not caught at all. The open soft-condition category depends on the structural guard that does not yet exist (see BD-0009).
+- **What it blocks:** Nothing today. Open, not scheduled. Fragility / coverage debt surfaced by the PR #45 enforcement work.
+- **Reference:** free-text enforcement commit a2c7450 (PR #45); depends on BD-0009 (structural guard unbuilt) — **UNVERIFIED (cross-repo — confirm in entrylens-platform).** Engine code lives in EntryLens, not checkable from an AIOS session (BD-0007); recorded as transcribed this session.
