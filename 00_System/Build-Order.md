@@ -105,4 +105,11 @@ Build-Order call — not decided here.
 - Phases / done-criteria / next slices: `00_System/EntryLens-Roadmap.md`
 - Blockers referenced here (BD-0001, BD-0002, BD-0006, BD-0007):
   `00_System/Blockers-Debt-Ledger.md`
+- EntryLens engine state not on the PC chain (NYSE calendar 2022–2028; five-color
+  status bundle proven + golden-locked CORPUS=23; EL-ADR-025 hardening merged):
+  `08_Decision-Logs/ADR-0010-entrylens-engine-state-calendar-five-states-hardening.md`.
+  NOTE: link #2 above ("four-state `TAPredicateStatusV1`") is the per-predicate
+  type — distinct from the five-color bundle in ADR-0010.
+- r01 real-data fixture (blocked-by-design) + MarketSnapshot producer gates
+  (P1 ✅ / P2 ✅ / P3 ❌): `00_System/Blockers-Debt-Ledger.md` BD-0011.
 - PC candidate rows: `04_AlphaLab/Predicate-Candidates/_index.md`
