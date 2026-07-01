@@ -30,7 +30,7 @@ boundary. Routine task notes. The ledger view itself (that's
 
 ## Status
 
-Ten decisions logged, each with a row in `00_System/Decision-Index.md`:
+Eleven decisions logged, each with a row in `00_System/Decision-Index.md`:
 ADR-0001 (trader-intelligence-company, 2026-06-19), ADR-0002 (permission
 posture, 2026-06-21), DIRECTION-0001 (market-context evidence layer — direction
 captured, 2026-06-22), ADR-0003 (EntryLens verified-state record, 2026-06-22),
