@@ -99,3 +99,27 @@ A single cross-repo register of known blockers, debt, and process constraints sp
 - **What it is:** Within the §2 free-text guard (commit a2c7450, PR #45), the phrases "buyers defend" / "sellers defend" are caught only *incidentally* — via the legacy "buy" / "sell" substring in `FORBIDDEN_TERMS`, not by any rule that targets them. This is fragile: word-boundary tightening of that path (the same tightening PR #45 applied to the boundable terms) would silently un-catch them. Related soft-condition phrases — "not extended" / "support holds" / "bulls take control" — are not caught at all. The open soft-condition category depends on the structural guard that does not yet exist (see BD-0009).
 - **What it blocks:** Nothing today. Open, not scheduled. Fragility / coverage debt surfaced by the PR #45 enforcement work.
 - **Reference:** free-text enforcement commit a2c7450 (PR #45); depends on BD-0009 (structural guard unbuilt) — **UNVERIFIED (cross-repo — confirm in entrylens-platform).** Engine code lives in EntryLens, not checkable from an AIOS session (BD-0007); recorded as transcribed this session.
+
+## BD-0011 — r01 real-data fixture blocked-by-design; MarketSnapshot producer P3 (written licensing) open
+
+- **Tag:** BLOCKS-BUILD (scoped)
+- **Repo:** EntryLens-platform (record mirrored in AIOS)
+- **What it is:** The **r01 real-data replay fixture cannot be produced** — no
+  builder / converter / CSV / SPY archive exists — and it is **gated behind the
+  MarketSnapshot producer by design.** It is **blocked-by-design, NOT
+  in-progress.** MarketSnapshot producer gates: **P1 engine core ✅**,
+  **P2 engine-hardening ADR (EL-ADR-025) ✅** (cleared — see ADR-0010),
+  **P3 written licensing confirmation ❌ (unverified).**
+- **What it blocks:** The "one setup proven on REAL data" milestone
+  (`00_System/EntryLens-Roadmap.md` Phase 1 done-criterion; DIRECTION-0001
+  gate 3). r01 stays blocked-by-design until the producer P3 licensing gate is
+  cleared by a human.
+- **P3 current state (surfaced, unresolved — Alexander's call):** No written
+  licensing confirmation is on record in AIOS; **no provider is named** (no
+  "Databento" or any other, grep-confirmed).
+  `08_Decision-Logs/DIRECTION-0001-market-context-evidence-layer.md:103`
+  reads verbatim: "Data-provider choice. Deferred — needs a dedicated research
+  pass later, not now." This ledger does NOT resolve P3.
+- **Reference:** EL-ADR-024 (producer gates), EL-ADR-025 (hardening; P2 cleared)
+  — **UNVERIFIED (cross-repo — confirm in entrylens-platform)** per BD-0007;
+  recorded via ADR-0010. DIRECTION-0001 §5 (provider choice deferred).
