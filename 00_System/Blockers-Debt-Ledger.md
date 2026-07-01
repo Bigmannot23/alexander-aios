@@ -115,8 +115,9 @@ A single cross-repo register of known blockers, debt, and process constraints sp
   gate 3). r01 stays blocked-by-design until the producer P3 licensing gate is
   cleared by a human.
 - **P3 current state (surfaced, unresolved — Alexander's call):** No written
-  licensing confirmation is on record in AIOS; **no provider is named** (no
-  "Databento" or any other, grep-confirmed).
+  licensing confirmation is on record in AIOS; **no provider is named in
+  DIRECTION-0001's provider-choice note** (data-provider choice deferred per
+  that ADR; no selection has been recorded).
   `08_Decision-Logs/DIRECTION-0001-market-context-evidence-layer.md:103`
   reads verbatim: "Data-provider choice. Deferred — needs a dedicated research
   pass later, not now." This ledger does NOT resolve P3.

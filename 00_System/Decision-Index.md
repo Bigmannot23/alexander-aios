@@ -32,9 +32,6 @@ owner) and §3 (unresolved source-of-truth conflicts become a decision log).
 
 ## Ledger
 
-No decisions have been logged yet. Add a row per decision using this
-format:
-
 | ID | Date | Decision | Owner | Proof required? | Link |
 |---|---|---|---|---|---|
 | ADR-0001 | 2026-06-19 | Claude becomes a trader-intelligence company around EntryLens (Claude does not trade) | bigmannot23 | no | [ADR-0001](../08_Decision-Logs/ADR-0001-trader-intelligence-company.md) |
